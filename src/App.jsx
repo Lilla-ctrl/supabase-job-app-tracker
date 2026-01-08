@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { supabase } from "./helpers/supabase-client";
+import Modal from "./components/Modal";
+import Jobcard from "./components/Jobcard";
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [newJob, setNewJob] = useState({
     company: "",
     position: "",
+    contact: "",
+    notes: "",
     status: "",
   });
   const [jobs, setJobs] = useState([]);
@@ -56,34 +61,21 @@ function App() {
   return (
     <>
       <div>
-        <form action="" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="company"
-            onChange={(e) =>
-              setNewJob((prev) => ({ ...prev, company: e.target.value }))
-            }
-          />
-          <input
-            type="text"
-            placeholder="position"
-            onChange={(e) =>
-              setNewJob((prev) => ({ ...prev, position: e.target.value }))
-            }
-          />
-          <input
-            type="text"
-            placeholder="status"
-            onChange={(e) =>
-              setNewJob((prev) => ({ ...prev, status: e.target.value }))
-            }
-          />
-          <button className="hover:cursor-pointer" type="submit">
-            submit
-          </button>
-        </form>
+        <button onClick={() => setIsModalOpen(true)}>Modal</button>
       </div>
-      <div>Jobs:</div>
+      {isModalOpen && (
+        <Modal
+          newJob={newJob}
+          handleSubmit={handleSubmit}
+          isOpen={setIsModalOpen}
+          setNewJob={setNewJob}
+        />
+      )}
+
+      <Jobcard jobs={jobs} />
+
+      
+      {/* <div>Jobs:</div>
       {jobs.map((job, key) => (
         <div key={key}>
           <div>
@@ -98,7 +90,7 @@ function App() {
             <button onClick={() => handleDelete(job.id)}>Delete</button>
           </div>
         </div>
-      ))}
+      ))} */}
     </>
   );
 }

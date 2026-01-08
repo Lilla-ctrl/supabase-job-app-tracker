@@ -1,6 +1,6 @@
 import { StickyNote } from "lucide-react";
 
-export default function Jobcard() {
+export default function Jobcard({jobs}) {
   const statusColors = {
     Applied: "bg-blue-100 text-blue-800",
     Interviewing: "bg-green-200 text-green-900",
@@ -15,7 +15,7 @@ export default function Jobcard() {
 
   return (
     <div className="flex flex-wrap justify-center px-4 gap-6">
-      {jobData.map((job, index) => (
+      {jobs.map((job, index) => (
         <div
           key={index}
           className="w-75 bg-gray-50 p-4 rounded-xl shadow-md border border-gray-300 flex flex-col justify-between"

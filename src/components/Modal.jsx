@@ -1,5 +1,5 @@
-export default function Modal() {
-  function handleSubmit(event) {
+export default function Modal({ newJob, isOpen, handleSubmit, setNewJob }) {
+  /* function handleSubmit(event) {
     event.preventDefault();
 
     if (editingIndex === null) {
@@ -19,7 +19,7 @@ export default function Modal() {
       status: "",
     });
     closeModal();
-  }
+  } */
   /* 
   function handleChange(event) {
     let value = event.target.value;
@@ -32,15 +32,14 @@ export default function Modal() {
   } */
 
   function handleClose() {
-    setEditingIndex(null);
-    setData({
+    setNewJob({
       company: "",
       position: "",
       contact: "",
       notes: "",
       status: "",
     });
-    closeModal();
+    isOpen(false);
   }
 
   return (
@@ -53,7 +52,6 @@ export default function Modal() {
                 Company
               </label>
               <input
-                value={newJob.company}
                 onChange={(e) =>
                   setNewJob((prev) => ({ ...prev, company: e.target.value }))
                 }
@@ -70,7 +68,6 @@ export default function Modal() {
                 Position
               </label>
               <input
-                value={newJob.position}
                 onChange={(e) =>
                   setNewJob((prev) => ({ ...prev, position: e.target.value }))
                 }
@@ -87,8 +84,7 @@ export default function Modal() {
                 Contact info
               </label>
               <input
-                value={newJob.contact}
-                onChange={handleChange}
+                /* onChange={} */
                 type="text"
                 name="contact"
                 id="contact"
@@ -107,16 +103,14 @@ export default function Modal() {
               onChange={(e) => setData({ ...newJob, date: e.target.value })}
             />
             <textarea
-              value={newJob.notes}
               name="notes"
-              onChange={handleChange}
+              /* onChange={} */
               id="notes"
               rows="4"
               placeholder=" Add any notes here"
               className="border mt-4 mb-2 w-full rounded-md border-gray-300 shadow-sm focus:border-teal-600 focus:ring-teal-600 sm:text-md"
             ></textarea>
             <select
-              value={newJob.status}
               onChange={(e) =>
                 setNewJob((prev) => ({ ...prev, status: e.target.value }))
               }

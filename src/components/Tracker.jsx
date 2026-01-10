@@ -39,6 +39,10 @@ export default function Tracker() {
     }
   }
 
+  async function logout() {
+    await supabase.auth.signOut();
+  }
+
   async function fetchJobs() {
     const { error, data } = await supabase
       .from("job_applications")
@@ -61,6 +65,7 @@ export default function Tracker() {
     <>
       <div>
         <button onClick={() => setIsModalOpen(true)}>Modal</button>
+        <button onClick={logout}>Log out</button>
       </div>
       {isModalOpen && (
         <Modal
@@ -73,5 +78,5 @@ export default function Tracker() {
 
       <Jobcard jobs={jobs} />
     </>
-  )
+  );
 }

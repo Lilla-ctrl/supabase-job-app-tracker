@@ -4,7 +4,7 @@ import { supabase } from "../helpers/supabase-client";
 export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSigningUp, setIsSigningUp] = useState(false);
+  const [isSigningUp, setIsSigningUp] = useState(true);
 
   async function handleSubmit(event) {
     event.preventDefault();

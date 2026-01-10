@@ -76,7 +76,7 @@ export default function Tracker() {
         />
       )}
 
-      <Jobcard jobs={jobs} />
+      <Jobcard jobs={jobs} handleDelete={handleDelete} />
     </>
   );
 }

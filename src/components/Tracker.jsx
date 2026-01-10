@@ -25,6 +25,7 @@ export default function Tracker() {
     }
 
     setNewJob("");
+    setIsModalOpen(false);
   }
 
   async function handleDelete(id) {

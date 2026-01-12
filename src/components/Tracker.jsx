@@ -3,7 +3,7 @@ import { supabase } from "../helpers/supabase-client";
 import Jobcard from "./Jobcard";
 import Modal from "./Modal";
 
-export default function Tracker() {
+export default function Tracker({ session }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newJob, setNewJob] = useState({
     company: "",
@@ -61,6 +61,28 @@ export default function Tracker() {
   useEffect(() => {
     fetchJobs();
   }, []);
+
+  useEffect(() => {
+    const session = supabase.auth.getSession();
+
+    if (!session) return;
+
+    const channel = supabase.channel("jobs-channel");
+    channel
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "job_applications" },
+        (payload) => {
+          const newJob = payload.new;
+          setJobs((prev) => [...prev, newJob]);
+        }
+      )
+      .subscribe((status) => {
+        console.log("Subscription:", status);
+      });
+
+    return () => channel.unsubscribe();
+  }, [session]);
 
   return (
     <>

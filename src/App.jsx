@@ -27,7 +27,7 @@ function App() {
     };
   }, []);
 
-  return <>{session ? <Tracker /> : <Auth />}</>;
+  return <>{session ? <Tracker session={session} /> : <Auth />}</>;
 }
 
 export default App;

@@ -5,26 +5,64 @@ import Modal from "./Modal";
 
 export default function Tracker({ session }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [newJob, setNewJob] = useState({
     company: "",
     position: "",
     contact: "",
     notes: "",
     status: "",
+    applied_at: null,
   });
   const [jobs, setJobs] = useState([]);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    const { error } = await supabase.from("job_applications").insert(newJob);
+  async function handleSubmit(job) {
+    const { error } = await supabase.from("job_applications").insert(job);
 
     if (error) {
       console.error("Error adding job:", error.message);
       return;
     }
 
-    setNewJob("");
+    setIsModalOpen(false);
+    setNewJob({
+      company: "",
+      position: "",
+      contact: "",
+      notes: "",
+      status: "",
+      applied_at: null,
+    });
+  }
+
+  function handleEdit(id) {
+    const selectedJob = jobs.find((job) => job.id === id);
+    setIsEditing(true);
+    setNewJob(selectedJob);
+    setIsModalOpen(true);
+  }
+
+  async function handleSave(job) {
+    console.log("Updating job with id:", job.id, "payload:", job);
+    console.log("handleSave called with:", job);
+
+    const { error } = await supabase
+      .from("job_applications")
+      .update({
+        company: job.company,
+        position: job.position,
+        contact: job.contact,
+        notes: job.notes,
+        status: job.status,
+        applied_at: job.applied_at,
+      })
+      .eq("id", job.id);
+
+    if (error) {
+      console.error("Error updating job:", error.message);
+      return;
+    }
+
     setIsModalOpen(false);
   }
 
@@ -79,6 +117,20 @@ export default function Tracker({ session }) {
       )
       .subscribe();
 
+    const updateChannel = supabase.channel("jobs-update-channel");
+    updateChannel
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "job_applications" },
+        (payload) => {
+          console.log("Update:", payload);
+          setJobs((prev) =>
+            prev.map((job) => (job.id === payload.new.id ? payload.new : job))
+          );
+        }
+      )
+      .subscribe();
+
     const deleteChannel = supabase.channel("jobs-delete-channel");
     deleteChannel
       .on(
@@ -92,26 +144,49 @@ export default function Tracker({ session }) {
       .subscribe();
 
     return () => {
-      insertChannel.unsubscribe(), deleteChannel.unsubscribe();
+      insertChannel.unsubscribe();
+      updateChannel.unsubscribe();
+      deleteChannel.unsubscribe();
     };
   }, [session]);
 
   return (
     <>
       <div>
-        <button onClick={() => setIsModalOpen(true)}>Modal</button>
+        <button
+          onClick={() => {
+            setIsEditing(false);
+            setNewJob({
+              company: "",
+              position: "",
+              contact: "",
+              notes: "",
+              status: "",
+              applied_at: null,
+            });
+            setIsModalOpen(true);
+          }}
+        >
+          Modal
+        </button>
         <button onClick={logout}>Log out</button>
       </div>
       {isModalOpen && (
         <Modal
-          newJob={newJob}
-          handleSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           isOpen={setIsModalOpen}
-          setNewJob={setNewJob}
+          isEditing={isEditing}
+          selectedJob={newJob}
+          setFormData={setNewJob}
+          onSave={handleSave}
         />
       )}
 
-      <Jobcard jobs={jobs} handleDelete={handleDelete} />
+      <Jobcard
+        jobs={jobs}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
     </>
   );
 }

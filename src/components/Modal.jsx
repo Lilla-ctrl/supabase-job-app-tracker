@@ -1,43 +1,19 @@
-export default function Modal({ newJob, isOpen, handleSubmit, setNewJob }) {
-  /* function handleSubmit(event) {
-    event.preventDefault();
-
-    if (editingIndex === null) {
-      setJobData((prevData) => [...prevData, newJob]);
-      setEditingIndex(null);
-    } else {
-      let updatedJobs = [...jobData];
-      updatedJobs[editingIndex] = newJob;
-      setJobData(updatedJobs);
-      setEditingIndex(null);
-    }
-    setData({
-      company: "",
-      position: "",
-      contact: "",
-      notes: "",
-      status: "",
-    });
-    closeModal();
-  } */
-  /* 
-  function handleChange(event) {
-    let value = event.target.value;
-    let fieldName = event.target.name;
-
-    setData({
-      ...newJob,
-      [fieldName]: value,
-    });
-  } */
-
+export default function Modal({
+  isOpen,
+  isEditing,
+  onSubmit,
+  selectedJob,
+  setFormData,
+  onSave,
+}) {
   function handleClose() {
-    setNewJob({
+    setFormData({
       company: "",
       position: "",
       contact: "",
       notes: "",
       status: "",
+      applied_at: null,
     });
     isOpen(false);
   }
@@ -45,15 +21,25 @@ export default function Modal({ newJob, isOpen, handleSubmit, setNewJob }) {
   return (
     <div className="bg-black/60 fixed inset-0 flex items-center justify-center min-h-screen ">
       <div className="bg-amber-50 p-6 rounded shadow-lg max-w-lg md:max-w-xl w-full ">
-        <form onSubmit={handleSubmit} action="">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (isEditing) {
+              onSave(selectedJob);
+            } else {
+              onSubmit(selectedJob);
+            }
+          }}
+        >
           <div>
             <div className="space-y-4">
               <label htmlFor="company" className="text-gray-500 text-lg">
                 Company
               </label>
               <input
+                value={selectedJob?.company || ""}
                 onChange={(e) =>
-                  setNewJob((prev) => ({ ...prev, company: e.target.value }))
+                  setFormData((prev) => ({ ...prev, company: e.target.value }))
                 }
                 type="text"
                 name="company"
@@ -68,8 +54,9 @@ export default function Modal({ newJob, isOpen, handleSubmit, setNewJob }) {
                 Position
               </label>
               <input
+                value={selectedJob?.position || ""}
                 onChange={(e) =>
-                  setNewJob((prev) => ({ ...prev, position: e.target.value }))
+                  setFormData((prev) => ({ ...prev, position: e.target.value }))
                 }
                 type="text"
                 name="position"
@@ -84,7 +71,10 @@ export default function Modal({ newJob, isOpen, handleSubmit, setNewJob }) {
                 Contact info
               </label>
               <input
-                /* onChange={} */
+                value={selectedJob?.contact || ""}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, contact: e.target.value }))
+                }
                 type="text"
                 name="contact"
                 id="contact"
@@ -99,20 +89,26 @@ export default function Modal({ newJob, isOpen, handleSubmit, setNewJob }) {
               type="date"
               id="date"
               name="date"
-              value={newJob.date}
-              onChange={(e) => setData({ ...newJob, date: e.target.value })}
+              value={selectedJob?.applied_at || undefined}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, applied_at: e.target.value }))
+              }
             />
             <textarea
               name="notes"
-              /* onChange={} */
+              value={selectedJob?.notes || ""}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, notes: e.target.value }))
+              }
               id="notes"
               rows="4"
               placeholder=" Add any notes here"
               className="border mt-4 mb-2 w-full rounded-md border-gray-300 shadow-sm focus:border-teal-600 focus:ring-teal-600 sm:text-md"
             ></textarea>
             <select
+              value={selectedJob?.status || ""}
               onChange={(e) =>
-                setNewJob((prev) => ({ ...prev, status: e.target.value }))
+                setFormData((prev) => ({ ...prev, status: e.target.value }))
               }
               name="status"
               id="status-select"

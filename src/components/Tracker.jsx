@@ -67,21 +67,33 @@ export default function Tracker({ session }) {
 
     if (!session) return;
 
-    const channel = supabase.channel("jobs-channel");
-    channel
+    const insertChannel = supabase.channel("jobs-insert-channel");
+    insertChannel
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "job_applications" },
         (payload) => {
-          const newJob = payload.new;
-          setJobs((prev) => [...prev, newJob]);
+          console.log("Insert:", payload);
+          setJobs((prev) => [...prev, payload.new]);
         }
       )
-      .subscribe((status) => {
-        console.log("Subscription:", status);
-      });
+      .subscribe();
 
-    return () => channel.unsubscribe();
+    const deleteChannel = supabase.channel("jobs-delete-channel");
+    deleteChannel
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "job_applications" },
+        (payload) => {
+          console.log("Delete:", payload);
+          setJobs((prev) => prev.filter((job) => job.id !== payload.old.id));
+        }
+      )
+      .subscribe();
+
+    return () => {
+      insertChannel.unsubscribe(), deleteChannel.unsubscribe();
+    };
   }, [session]);
 
   return (

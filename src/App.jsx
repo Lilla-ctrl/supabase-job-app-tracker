@@ -9,7 +9,6 @@ function App() {
 
   async function fetchSession() {
     const currentSession = await supabase.auth.getSession();
-    console.log(currentSession);
     setSession(currentSession.data.session);
   }
 

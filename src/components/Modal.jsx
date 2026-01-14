@@ -131,6 +131,7 @@ export default function Modal({
           </button>
           <button
             onClick={handleClose}
+            type="button"
             className="border border-gray-300 text-gray-500 rounded-md px-3 py-1 mt-5 hover:bg-gray-300 cursor-pointer ml-2"
           >
             Cancel

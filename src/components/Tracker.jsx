@@ -4,6 +4,7 @@ import Jobcard from "./Jobcard";
 import Modal from "./Modal";
 
 export default function Tracker({ session }) {
+  /* State handlers */
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [newJob, setNewJob] = useState({
@@ -16,6 +17,7 @@ export default function Tracker({ session }) {
   });
   const [jobs, setJobs] = useState([]);
 
+  /* Functions */
   async function handleSubmit(job) {
     const payload = {
       ...job,
@@ -56,8 +58,6 @@ export default function Tracker({ session }) {
       status: job.status,
       applied_at: job.applied_at === "" ? null : job.applied_at,
     };
-
-    console.log("Updating job with id:", job.id, "payload:", job);
 
     const { error } = await supabase
       .from("job_applications")
@@ -106,6 +106,7 @@ export default function Tracker({ session }) {
     fetchJobs();
   }, []);
 
+  /* Supabase actions */
   useEffect(() => {
     const session = supabase.auth.getSession();
 
@@ -156,6 +157,7 @@ export default function Tracker({ session }) {
     };
   }, [session]);
 
+  /* Render */
   return (
     <>
       <div>

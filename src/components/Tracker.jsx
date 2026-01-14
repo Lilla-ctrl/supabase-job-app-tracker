@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../helpers/supabase-client";
 import Jobcard from "./Jobcard";
 import Modal from "./Modal";
+import { filterJobsByStatus } from "../helpers/jobUtils";
 
 export default function Tracker({ session }) {
   /* State handlers */
@@ -16,6 +17,7 @@ export default function Tracker({ session }) {
     applied_at: "",
   });
   const [jobs, setJobs] = useState([]);
+  const [statusForFilter, setStatusForFilter] = useState(null);
 
   /* Functions */
   async function handleSubmit(job) {
@@ -157,6 +159,8 @@ export default function Tracker({ session }) {
     };
   }, [session]);
 
+  const filteredJobs = filterJobsByStatus(jobs, statusForFilter);
+
   /* Render */
   return (
     <>
@@ -177,6 +181,21 @@ export default function Tracker({ session }) {
         >
           Modal
         </button>
+        <select
+          className="border border-teal-500 rounded-md hover:bg-amber-50"
+          name="filter"
+          id="filter"
+          value={statusForFilter || ""}
+          onChange={(e) => setStatusForFilter(e.target.value)}
+        >
+          <option value="">Filter by status </option>
+          <option value="All">All (no filter)</option>
+          <option value="Applied">Applied</option>
+          <option value="Interviewing">Interviewing</option>
+          <option value="Offer received">Offer received</option>
+          <option value="Rejected">Rejected</option>
+          <option value="Unsolicited">Unsolicited</option>
+        </select>
         <button onClick={logout}>Log out</button>
       </div>
       {isModalOpen && (
@@ -191,7 +210,7 @@ export default function Tracker({ session }) {
       )}
 
       <Jobcard
-        jobs={jobs}
+        jobs={filteredJobs}
         handleDelete={handleDelete}
         handleEdit={handleEdit}
       />

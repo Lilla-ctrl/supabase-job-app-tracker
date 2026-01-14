@@ -13,7 +13,7 @@ export default function Modal({
       contact: "",
       notes: "",
       status: "",
-      applied_at: null,
+      applied_at: "",
     });
     isOpen(false);
   }
@@ -89,7 +89,7 @@ export default function Modal({
               type="date"
               id="date"
               name="date"
-              value={selectedJob?.applied_at || undefined}
+              value={selectedJob?.applied_at || ""}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, applied_at: e.target.value }))
               }

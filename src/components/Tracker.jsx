@@ -12,12 +12,17 @@ export default function Tracker({ session }) {
     contact: "",
     notes: "",
     status: "",
-    applied_at: null,
+    applied_at: "",
   });
   const [jobs, setJobs] = useState([]);
 
   async function handleSubmit(job) {
-    const { error } = await supabase.from("job_applications").insert(job);
+    const payload = {
+      ...job,
+      applied_at: job.applied_at === "" ? null : job.applied_at,
+    };
+
+    const { error } = await supabase.from("job_applications").insert(payload);
 
     if (error) {
       console.error("Error adding job:", error.message);
@@ -31,7 +36,7 @@ export default function Tracker({ session }) {
       contact: "",
       notes: "",
       status: "",
-      applied_at: null,
+      applied_at: "",
     });
   }
 
@@ -43,19 +48,20 @@ export default function Tracker({ session }) {
   }
 
   async function handleSave(job) {
+    const payload = {
+      company: job.company,
+      position: job.position,
+      contact: job.contact,
+      notes: job.notes,
+      status: job.status,
+      applied_at: job.applied_at === "" ? null : job.applied_at,
+    };
+
     console.log("Updating job with id:", job.id, "payload:", job);
-    console.log("handleSave called with:", job);
 
     const { error } = await supabase
       .from("job_applications")
-      .update({
-        company: job.company,
-        position: job.position,
-        contact: job.contact,
-        notes: job.notes,
-        status: job.status,
-        applied_at: job.applied_at,
-      })
+      .update(payload)
       .eq("id", job.id);
 
     if (error) {
@@ -162,7 +168,7 @@ export default function Tracker({ session }) {
               contact: "",
               notes: "",
               status: "",
-              applied_at: null,
+              applied_at: "",
             });
             setIsModalOpen(true);
           }}

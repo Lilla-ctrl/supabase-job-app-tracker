@@ -23,7 +23,7 @@ export default function Jobcard({ jobs, handleDelete, handleEdit }) {
           <h2 className="text-2xl mb-2">{job.company}</h2>
           <div className="flex flex-wrap justify-between">
             <h3>{job.position}</h3>
-            <h3>{job.date}</h3>
+            <h3>{job.applied_at}</h3>
           </div>
           <h3>{job.contact}</h3>
           <div>

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../helpers/supabase-client";
 import Jobcard from "./Jobcard";
 import Modal from "./Modal";
-import { filterJobsByStatus } from "../helpers/jobUtils";
+import { filterJobsByStatus, sortJobs } from "../helpers/jobUtils";
 
 export default function Tracker({ session }) {
   /* State handlers */
@@ -18,6 +18,7 @@ export default function Tracker({ session }) {
   });
   const [jobs, setJobs] = useState([]);
   const [statusForFilter, setStatusForFilter] = useState(null);
+  const [sortingOption, setSortingOption] = useState(null);
 
   /* Functions */
   async function handleSubmit(job) {
@@ -159,7 +160,9 @@ export default function Tracker({ session }) {
     };
   }, [session]);
 
+  /* Filtering and sorting */
   const filteredJobs = filterJobsByStatus(jobs, statusForFilter);
+  const sortedJobs = sortJobs(filteredJobs, sortingOption);
 
   /* Render */
   return (
@@ -196,6 +199,21 @@ export default function Tracker({ session }) {
           <option value="Rejected">Rejected</option>
           <option value="Unsolicited">Unsolicited</option>
         </select>
+        <select
+          className="border border-teal-500 rounded-md hover:bg-amber-50"
+          name="sort"
+          id="sort"
+          value={sortingOption || ""}
+          onChange={(e) => setSortingOption(e.target.value)}
+        >
+          <option value="">Sort by:</option>
+          <option value="date-newest">Date (newest)</option>
+          <option value="date-oldest">Date (oldest)</option>
+          <option value="company-az">Company (a-z)</option>
+          <option value="company-za">Company (z-a)</option>
+          <option value="position-az">Position (a-z)</option>
+          <option value="position-za">Position (z-a)</option>
+        </select>
         <button onClick={logout}>Log out</button>
       </div>
       {isModalOpen && (
@@ -210,7 +228,7 @@ export default function Tracker({ session }) {
       )}
 
       <Jobcard
-        jobs={filteredJobs}
+        jobs={sortedJobs}
         handleDelete={handleDelete}
         handleEdit={handleEdit}
       />

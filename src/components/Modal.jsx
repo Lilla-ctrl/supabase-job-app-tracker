@@ -5,19 +5,8 @@ export default function Modal({
   selectedJob,
   setFormData,
   onSave,
+  emptyJob,
 }) {
-  function handleClose() {
-    setFormData({
-      company: "",
-      position: "",
-      contact: "",
-      notes: "",
-      status: "",
-      applied_at: "",
-    });
-    isOpen(false);
-  }
-
   return (
     <div className="bg-black/60 fixed inset-0 flex items-center justify-center min-h-screen ">
       <div className="bg-amber-50 p-6 rounded shadow-lg max-w-lg md:max-w-xl w-full ">
@@ -130,7 +119,10 @@ export default function Modal({
             Save
           </button>
           <button
-            onClick={handleClose}
+            onClick={() => {
+              setFormData(emptyJob);
+              isOpen(false);
+            }}
             type="button"
             className="border border-gray-300 text-gray-500 rounded-md px-3 py-1 mt-5 hover:bg-gray-300 cursor-pointer ml-2"
           >

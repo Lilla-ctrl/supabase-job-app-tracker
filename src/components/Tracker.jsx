@@ -118,10 +118,15 @@ export default function Tracker() {
           selectedJob={newJob}
           setFormData={setNewJob}
           onSave={handleUpdateJob}
+          emptyJob={empty_job}
         />
       )}
 
-      <Jobcard jobs={sortedJobs} onDelete={deleteJob} handleEditClick={handleEditClick} />
+      <Jobcard
+        jobs={sortedJobs}
+        onDelete={deleteJob}
+        handleEditClick={handleEditClick}
+      />
     </>
   );
 }

@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { supabase } from "../helpers/supabase-client";
 import Jobcard from "./Jobcard";
 import Modal from "./Modal";
 import { filterJobsByStatus, sortJobs } from "../helpers/jobUtils";
+import { useJobs } from "../hooks/useJobs";
 
-export default function Tracker({ session }) {
+export default function Tracker() {
   /* State handlers */
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -16,9 +17,10 @@ export default function Tracker({ session }) {
     status: "",
     applied_at: "",
   });
-  const [jobs, setJobs] = useState([]);
   const [statusForFilter, setStatusForFilter] = useState(null);
   const [sortingOption, setSortingOption] = useState(null);
+
+  const {jobs, loading, error} = useJobs();
 
   /* Functions */
   async function handleSubmit(job) {
@@ -90,75 +92,6 @@ export default function Tracker({ session }) {
   async function logout() {
     await supabase.auth.signOut();
   }
-
-  async function fetchJobs() {
-    const { error, data } = await supabase
-      .from("job_applications")
-      .select("*")
-      .order("created_at", { ascending: true });
-
-    if (error) {
-      console.error("Error reading job:", error.message);
-      return;
-    }
-
-    setJobs(data);
-  }
-
-  useEffect(() => {
-    fetchJobs();
-  }, []);
-
-  /* Supabase actions */
-  useEffect(() => {
-    const session = supabase.auth.getSession();
-
-    if (!session) return;
-
-    const insertChannel = supabase.channel("jobs-insert-channel");
-    insertChannel
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "job_applications" },
-        (payload) => {
-          console.log("Insert:", payload);
-          setJobs((prev) => [...prev, payload.new]);
-        }
-      )
-      .subscribe();
-
-    const updateChannel = supabase.channel("jobs-update-channel");
-    updateChannel
-      .on(
-        "postgres_changes",
-        { event: "UPDATE", schema: "public", table: "job_applications" },
-        (payload) => {
-          console.log("Update:", payload);
-          setJobs((prev) =>
-            prev.map((job) => (job.id === payload.new.id ? payload.new : job))
-          );
-        }
-      )
-      .subscribe();
-
-    const deleteChannel = supabase.channel("jobs-delete-channel");
-    deleteChannel
-      .on(
-        "postgres_changes",
-        { event: "DELETE", schema: "public", table: "job_applications" },
-        (payload) => {
-          console.log("Delete:", payload);
-          setJobs((prev) => prev.filter((job) => job.id !== payload.old.id));
-        }
-      )
-      .subscribe();
-
-    return () => {
-      insertChannel.unsubscribe();
-      updateChannel.unsubscribe();
-      deleteChannel.unsubscribe();
-    };
-  }, [session]);
 
   /* Filtering and sorting */
   const filteredJobs = filterJobsByStatus(jobs, statusForFilter);

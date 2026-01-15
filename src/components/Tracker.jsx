@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Jobcard from "./Jobcard";
 import Modal from "./Modal";
+import Header from "./Header";
 import { filterJobsByStatus, sortJobs } from "../helpers/jobUtils";
 import { useJobs } from "../hooks/useJobs";
 
@@ -61,55 +62,6 @@ export default function Tracker() {
   /* Render */
   return (
     <>
-      <div>
-        <button
-          onClick={() => {
-            setIsEditing(false);
-            setNewJob({
-              company: "",
-              position: "",
-              contact: "",
-              notes: "",
-              status: "",
-              applied_at: "",
-            });
-            setIsModalOpen(true);
-          }}
-        >
-          Modal
-        </button>
-        <select
-          className="border border-teal-500 rounded-md hover:bg-amber-50"
-          name="filter"
-          id="filter"
-          value={statusForFilter || ""}
-          onChange={(e) => setStatusForFilter(e.target.value)}
-        >
-          <option value="">Filter by status </option>
-          <option value="All">All (no filter)</option>
-          <option value="Applied">Applied</option>
-          <option value="Interviewing">Interviewing</option>
-          <option value="Offer received">Offer received</option>
-          <option value="Rejected">Rejected</option>
-          <option value="Unsolicited">Unsolicited</option>
-        </select>
-        <select
-          className="border border-teal-500 rounded-md hover:bg-amber-50"
-          name="sort"
-          id="sort"
-          value={sortingOption || ""}
-          onChange={(e) => setSortingOption(e.target.value)}
-        >
-          <option value="">Sort by:</option>
-          <option value="date-newest">Date (newest)</option>
-          <option value="date-oldest">Date (oldest)</option>
-          <option value="company-az">Company (a-z)</option>
-          <option value="company-za">Company (z-a)</option>
-          <option value="position-az">Position (a-z)</option>
-          <option value="position-za">Position (z-a)</option>
-        </select>
-        <button onClick={logout}>Log out</button>
-      </div>
       {isModalOpen && (
         <Modal
           onSubmit={handleAddJob}
@@ -121,7 +73,17 @@ export default function Tracker() {
           emptyJob={empty_job}
         />
       )}
-
+      <Header
+        isEditing={setIsEditing}
+        newJob={setNewJob}
+        isModalOpen={setIsModalOpen}
+        emptyJob={empty_job}
+        filterStatus={statusForFilter}
+        setFilterStatus={setStatusForFilter}
+        sortOrder={sortingOption}
+        setSortOrder={setSortingOption}
+        logout={logout}
+      />
       <Jobcard
         jobs={sortedJobs}
         onDelete={deleteJob}

@@ -20,6 +20,18 @@ export function useJobs() {
     setJobs(data);
   }
 
+  async function handleDelete(id) {
+      const { error } = await supabase
+        .from("job_applications")
+        .delete()
+        .eq("id", id);
+  
+      if (error) {
+        console.error("Error deleting job:", error.message);
+        return;
+      }
+    }
+
   useEffect(() => {
     fetchJobs();
   }, []);
@@ -73,6 +85,7 @@ export function useJobs() {
 
   return {
     jobs,
+    handleDelete,
     loading,
     error,
   };

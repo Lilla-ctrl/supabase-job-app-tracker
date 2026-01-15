@@ -20,7 +20,7 @@ export default function Tracker() {
   const [statusForFilter, setStatusForFilter] = useState(null);
   const [sortingOption, setSortingOption] = useState(null);
 
-  const {jobs, loading, error} = useJobs();
+  const {jobs, handleDelete, loading, error} = useJobs();
 
   /* Functions */
   async function handleSubmit(job) {
@@ -77,17 +77,7 @@ export default function Tracker() {
     setIsModalOpen(false);
   }
 
-  async function handleDelete(id) {
-    const { error } = await supabase
-      .from("job_applications")
-      .delete()
-      .eq("id", id);
-
-    if (error) {
-      console.error("Error deleting job:", error.message);
-      return;
-    }
-  }
+  
 
   async function logout() {
     await supabase.auth.signOut();

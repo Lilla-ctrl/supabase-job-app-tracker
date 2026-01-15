@@ -64,6 +64,15 @@ export function useJobs() {
     }
   }
 
+  async function logout() {
+    try {
+      await supabase.auth.signOut();
+    } catch (err) {
+      console.error("Error logging out:", err.message);
+      throw err;
+    }
+  }
+
   useEffect(() => {
     fetchJobs();
   }, []);
@@ -120,6 +129,7 @@ export function useJobs() {
     deleteJob,
     addJob,
     updateJob,
+    logout,
     loading,
     error,
   };

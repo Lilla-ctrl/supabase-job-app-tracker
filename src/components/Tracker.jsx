@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { supabase } from "../helpers/supabase-client";
 import Jobcard from "./Jobcard";
 import Modal from "./Modal";
 import { filterJobsByStatus, sortJobs } from "../helpers/jobUtils";
@@ -22,7 +21,8 @@ export default function Tracker() {
   const [statusForFilter, setStatusForFilter] = useState(null);
   const [sortingOption, setSortingOption] = useState(null);
 
-  const { jobs, deleteJob, addJob, updateJob, loading, error } = useJobs();
+  const { jobs, deleteJob, addJob, updateJob, logout, loading, error } =
+    useJobs();
 
   /* Functions */
   async function handleAddJob(job) {
@@ -38,7 +38,7 @@ export default function Tracker() {
     } catch {}
   }
 
-  function handleEdit(id) {
+  function handleEditClick(id) {
     const selectedJob = jobs.find((job) => job.id === id);
     setIsEditing(true);
     setNewJob(selectedJob);
@@ -52,10 +52,6 @@ export default function Tracker() {
       setNewJob(empty_job);
       setIsEditing(false);
     } catch {}
-  }
-
-  async function logout() {
-    await supabase.auth.signOut();
   }
 
   /* Filtering and sorting */
@@ -125,7 +121,7 @@ export default function Tracker() {
         />
       )}
 
-      <Jobcard jobs={sortedJobs} onDelete={deleteJob} handleEdit={handleEdit} />
+      <Jobcard jobs={sortedJobs} onDelete={deleteJob} handleEditClick={handleEditClick} />
     </>
   );
 }

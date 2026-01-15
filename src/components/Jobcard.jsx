@@ -1,6 +1,6 @@
 import { StickyNote } from "lucide-react";
 
-export default function Jobcard({ jobs, onDelete, handleEdit }) {
+export default function Jobcard({ jobs, onDelete, handleEditClick }) {
   const statusColors = {
     Applied: "bg-blue-100 text-blue-800",
     Interviewing: "bg-green-200 text-green-900",
@@ -43,7 +43,7 @@ export default function Jobcard({ jobs, onDelete, handleEdit }) {
           </h3>
           <div className="flex flex-wrap gap-3 justify-end mt-auto">
             <button
-              onClick={() => handleEdit(job.id)}
+              onClick={() => handleEditClick(job.id)}
               className="border border-gray-300 rounded-md px-3 py-1 cursor-pointer hover:bg-gray-200"
             >
               Edit

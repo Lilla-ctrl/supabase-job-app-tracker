@@ -20,72 +20,84 @@ export function useJobs() {
     setJobs(data);
   }
 
-  async function handleDelete(id) {
+  async function addJob(payload) {
+    const { error } = await supabase.from("job_applications").insert(payload);
+
+    if (error) {
+      console.error("Error adding job:", error.message);
+      throw error;
+    }
+  }
+
+  async function deleteJob(id) {
+    try {
       const { error } = await supabase
         .from("job_applications")
         .delete()
         .eq("id", id);
-  
-      if (error) {
-        console.error("Error deleting job:", error.message);
-        return;
-      }
+
+      if (error) throw error;
+    } catch (err) {
+      console.error("Error deleting job:", error.message);
+      throw err;
     }
+  }
 
   useEffect(() => {
     fetchJobs();
   }, []);
 
   useEffect(() => {
-      const session = supabase.auth.getSession();
-  
-      if (!session) return;
-  
-      const insertChannel = supabase.channel("jobs-insert-channel");
-      insertChannel
-        .on(
-          "postgres_changes",
-          { event: "INSERT", schema: "public", table: "job_applications" },
-          (payload) => {
-            setJobs((prev) => [...prev, payload.new]);
-          }
-        )
-        .subscribe();
-  
-      const updateChannel = supabase.channel("jobs-update-channel");
-      updateChannel
-        .on(
-          "postgres_changes",
-          { event: "UPDATE", schema: "public", table: "job_applications" },
-          (payload) => {
-            setJobs((prev) =>
-              prev.map((job) => (job.id === payload.new.id ? payload.new : job))
-            );
-          }
-        )
-        .subscribe();
-  
-      const deleteChannel = supabase.channel("jobs-delete-channel");
-      deleteChannel
-        .on(
-          "postgres_changes",
-          { event: "DELETE", schema: "public", table: "job_applications" },
-          (payload) => {
-            setJobs((prev) => prev.filter((job) => job.id !== payload.old.id));
-          }
-        )
-        .subscribe();
-  
-      return () => {
-        insertChannel.unsubscribe();
-        updateChannel.unsubscribe();
-        deleteChannel.unsubscribe();
-      };
-    }, []);
+    const session = supabase.auth.getSession();
+
+    if (!session) return;
+
+    const insertChannel = supabase.channel("jobs-insert-channel");
+    insertChannel
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "job_applications" },
+        (payload) => {
+          setJobs((prev) => [...prev, payload.new]);
+        }
+      )
+      .subscribe();
+
+    const updateChannel = supabase.channel("jobs-update-channel");
+    updateChannel
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "job_applications" },
+        (payload) => {
+          setJobs((prev) =>
+            prev.map((job) => (job.id === payload.new.id ? payload.new : job))
+          );
+        }
+      )
+      .subscribe();
+
+    const deleteChannel = supabase.channel("jobs-delete-channel");
+    deleteChannel
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "job_applications" },
+        (payload) => {
+          setJobs((prev) => prev.filter((job) => job.id !== payload.old.id));
+        }
+      )
+      .subscribe();
+
+    return () => {
+      insertChannel.unsubscribe();
+      updateChannel.unsubscribe();
+      deleteChannel.unsubscribe();
+    };
+  }, []);
 
   return {
     jobs,
-    handleDelete,
+    deleteJob,
+    addJob,
     loading,
     error,
   };

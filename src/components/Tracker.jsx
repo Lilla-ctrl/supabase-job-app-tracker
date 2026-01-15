@@ -20,31 +20,27 @@ export default function Tracker() {
   const [statusForFilter, setStatusForFilter] = useState(null);
   const [sortingOption, setSortingOption] = useState(null);
 
-  const {jobs, handleDelete, loading, error} = useJobs();
+  const { jobs, deleteJob, addJob, loading, error } = useJobs();
 
   /* Functions */
-  async function handleSubmit(job) {
+  async function handleAddJob(job) {
     const payload = {
       ...job,
-      applied_at: job.applied_at === "" ? null : job.applied_at,
+      applied_at: job.applied_at || null,
     };
 
-    const { error } = await supabase.from("job_applications").insert(payload);
-
-    if (error) {
-      console.error("Error adding job:", error.message);
-      return;
-    }
-
-    setIsModalOpen(false);
-    setNewJob({
-      company: "",
-      position: "",
-      contact: "",
-      notes: "",
-      status: "",
-      applied_at: "",
-    });
+    try {
+      await addJob(payload);
+      setIsModalOpen(false);
+      setNewJob({
+        company: "",
+        position: "",
+        contact: "",
+        notes: "",
+        status: "",
+        applied_at: "",
+      });
+    } catch {}
   }
 
   function handleEdit(id) {
@@ -76,8 +72,6 @@ export default function Tracker() {
 
     setIsModalOpen(false);
   }
-
-  
 
   async function logout() {
     await supabase.auth.signOut();
@@ -141,7 +135,7 @@ export default function Tracker() {
       </div>
       {isModalOpen && (
         <Modal
-          onSubmit={handleSubmit}
+          onSubmit={handleAddJob}
           isOpen={setIsModalOpen}
           isEditing={isEditing}
           selectedJob={newJob}
@@ -150,11 +144,7 @@ export default function Tracker() {
         />
       )}
 
-      <Jobcard
-        jobs={sortedJobs}
-        handleDelete={handleDelete}
-        handleEdit={handleEdit}
-      />
+      <Jobcard jobs={sortedJobs} onDelete={deleteJob} handleEdit={handleEdit} />
     </>
   );
 }

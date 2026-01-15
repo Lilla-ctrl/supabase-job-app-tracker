@@ -43,6 +43,27 @@ export function useJobs() {
     }
   }
 
+  async function updateJob(job) {
+    try {
+      const { error } = await supabase
+        .from("job_applications")
+        .update({
+          company: job.company,
+          position: job.position,
+          contact: job.contact,
+          notes: job.notes,
+          status: job.status,
+          applied_at: job.applied_at || null,
+        })
+        .eq("id", job.id);
+
+      if (error) throw error;
+    } catch (err) {
+      console.error("Error updateing job:", err.message);
+      throw err;
+    }
+  }
+
   useEffect(() => {
     fetchJobs();
   }, []);
@@ -98,6 +119,7 @@ export function useJobs() {
     jobs,
     deleteJob,
     addJob,
+    updateJob,
     loading,
     error,
   };

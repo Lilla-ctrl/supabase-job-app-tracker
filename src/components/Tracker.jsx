@@ -6,21 +6,23 @@ import { filterJobsByStatus, sortJobs } from "../helpers/jobUtils";
 import { useJobs } from "../hooks/useJobs";
 
 export default function Tracker() {
-  /* State handlers */
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [newJob, setNewJob] = useState({
+  const empty_job = {
     company: "",
     position: "",
     contact: "",
     notes: "",
     status: "",
     applied_at: "",
-  });
+  };
+
+  /* State handlers */
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newJob, setNewJob] = useState(empty_job);
   const [statusForFilter, setStatusForFilter] = useState(null);
   const [sortingOption, setSortingOption] = useState(null);
 
-  const { jobs, deleteJob, addJob, loading, error } = useJobs();
+  const { jobs, deleteJob, addJob, updateJob, loading, error } = useJobs();
 
   /* Functions */
   async function handleAddJob(job) {
@@ -32,14 +34,7 @@ export default function Tracker() {
     try {
       await addJob(payload);
       setIsModalOpen(false);
-      setNewJob({
-        company: "",
-        position: "",
-        contact: "",
-        notes: "",
-        status: "",
-        applied_at: "",
-      });
+      setNewJob(empty_job);
     } catch {}
   }
 
@@ -50,27 +45,13 @@ export default function Tracker() {
     setIsModalOpen(true);
   }
 
-  async function handleSave(job) {
-    const payload = {
-      company: job.company,
-      position: job.position,
-      contact: job.contact,
-      notes: job.notes,
-      status: job.status,
-      applied_at: job.applied_at === "" ? null : job.applied_at,
-    };
-
-    const { error } = await supabase
-      .from("job_applications")
-      .update(payload)
-      .eq("id", job.id);
-
-    if (error) {
-      console.error("Error updating job:", error.message);
-      return;
-    }
-
-    setIsModalOpen(false);
+  async function handleUpdateJob(job) {
+    try {
+      await updateJob(job);
+      setIsModalOpen(false);
+      setNewJob(empty_job);
+      setIsEditing(false);
+    } catch {}
   }
 
   async function logout() {
@@ -140,7 +121,7 @@ export default function Tracker() {
           isEditing={isEditing}
           selectedJob={newJob}
           setFormData={setNewJob}
-          onSave={handleSave}
+          onSave={handleUpdateJob}
         />
       )}
 

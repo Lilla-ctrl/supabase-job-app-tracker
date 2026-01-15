@@ -9,9 +9,9 @@ export default function Jobcard({ jobs, handleDelete, handleEdit }) {
     Unsolicited: "bg-gray-200 text-gray-600",
   };
 
-  /* if (isLoaded && jobData.length === 0) {
+  if (jobs.length === 0) {
     return <p className="text-center text-2xl mt-6">No applications yet.</p>;
-  } */
+  }
 
   return (
     <div className="flex flex-wrap justify-center px-4 gap-6">

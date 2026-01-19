@@ -23,7 +23,7 @@ export default function Header({
       </div>
       <div className="flex flex-wrap gap-3 justify-center my-4">
         <button
-          className="bg-button text-button-text font-medium p-1 px-3 rounded-md hover:bg-button-hover cursor-pointer"
+          className="bg-button text-button-text font-medium p-1 px-3 rounded-md shadow-lg hover:bg-button-hover cursor-pointer"
           onClick={() => {
             isEditing(false);
             newJob(emptyJob);
@@ -33,7 +33,7 @@ export default function Header({
           + New Application
         </button>
         <select
-          className="border border-button text-text rounded-md hover:bg-button hover:text-button-text"
+          className="border border-button text-text rounded-md shadow-lg hover:bg-button hover:text-button-text"
           name="filter"
           id="filter"
           value={filterStatus || ""}
@@ -48,7 +48,7 @@ export default function Header({
           <option value="Unsolicited">Unsolicited</option>
         </select>
         <select
-          className="border border-button text-text rounded-md hover:bg-button hover:text-button-text"
+          className="border border-button text-text rounded-md shadow-lg hover:bg-button hover:text-button-text"
           name="sort"
           id="sort"
           value={sortOrder || ""}

@@ -11,6 +11,8 @@
   --color-text: #041122; /* dark color for text */
   --color-jobcard-button-hover: #ececec;
   --color-jobcard-border: #cbd5e0;
+  --color-modal-button-hover: #4a5568;
+  --color-modal-ring: #ffca28;
 }
 
 @layer theme {
@@ -23,5 +25,7 @@
     --color-text: #d1dbbd; /* light color for text */
     --color-jobcard-button-hover: #314357;
     --color-jobcard-border: #4a5568;
+    --color-modal-button-hover: #4a5568;
+    --color-modal-ring: #4a5568;
   }
 }

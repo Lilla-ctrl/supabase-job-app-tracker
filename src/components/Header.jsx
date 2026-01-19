@@ -8,7 +8,7 @@ export default function Header({
   sortOrder,
   setSortOrder,
   logout,
-  toggleTheme
+  toggleTheme,
 }) {
   return (
     <>
@@ -17,13 +17,13 @@ export default function Header({
         <button onClick={toggleTheme}>change theme</button>
       </div>
       <div>
-        <h1 className="text-gray-800 text-4xl font-medium text-center mt-3">
+        <h1 className="text-text text-4xl font-medium text-center mt-3">
           Job Application Tracker
         </h1>
       </div>
       <div className="flex flex-wrap gap-3 justify-center my-4">
         <button
-          className="bg-teal-500 text-white font-medium p-1 px-3 rounded-md hover:bg-teal-600 cursor-pointer"
+          className="bg-button text-button-text font-medium p-1 px-3 rounded-md hover:bg-button-hover cursor-pointer"
           onClick={() => {
             isEditing(false);
             newJob(emptyJob);
@@ -33,7 +33,7 @@ export default function Header({
           + New Application
         </button>
         <select
-          className="border border-teal-500 rounded-md hover:bg-amber-50"
+          className="border border-button text-text rounded-md hover:bg-button hover:text-button-text"
           name="filter"
           id="filter"
           value={filterStatus || ""}
@@ -48,7 +48,7 @@ export default function Header({
           <option value="Unsolicited">Unsolicited</option>
         </select>
         <select
-          className="border border-teal-500 rounded-md hover:bg-amber-50"
+          className="border border-button text-text rounded-md hover:bg-button hover:text-button-text"
           name="sort"
           id="sort"
           value={sortOrder || ""}

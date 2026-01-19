@@ -10,7 +10,11 @@ export default function Jobcard({ jobs, onDelete, handleEditClick }) {
   };
 
   if (jobs.length === 0) {
-    return <p className="text-center text-2xl mt-6">No applications yet.</p>;
+    return (
+      <p className="text-center text-2xl text-text mt-6">
+        No applications yet.
+      </p>
+    );
   }
 
   return (
@@ -18,17 +22,17 @@ export default function Jobcard({ jobs, onDelete, handleEditClick }) {
       {jobs.map((job, index) => (
         <div
           key={index}
-          className="w-75 bg-gray-50 p-4 rounded-xl shadow-md border border-gray-300 flex flex-col justify-between"
+          className="w-75 bg-secondary p-4 rounded-xl shadow-md border border-jobcard-border flex flex-col justify-between"
         >
-          <h2 className="text-2xl mb-2">{job.company}</h2>
-          <div className="flex flex-wrap justify-between">
+          <h2 className="text-2xl text-text mb-2">{job.company}</h2>
+          <div className="text-text flex flex-wrap justify-between">
             <h3>{job.position}</h3>
             <h3>{job.applied_at}</h3>
           </div>
-          <h3>{job.contact}</h3>
+          <h3 className="text-text">{job.contact}</h3>
           <div>
             {job.notes && (
-              <div className="flex items-start gap-2 mt-3 py-1 bg-yellow-50 border border-yellow-400 text-md text-gray-700 rounded-md">
+              <div className="flex items-start gap-2 mt-3 py-1 bg-yellow-50 border border-yellow-400 text-text dark:text-button-text text-md rounded-md">
                 <StickyNote className="w-5 h-5 mt-1 ml-1 text-yellow-500" />
                 <p className="whitespace-pre-line wrap-anywhere">{job.notes}</p>
               </div>
@@ -44,13 +48,13 @@ export default function Jobcard({ jobs, onDelete, handleEditClick }) {
           <div className="flex flex-wrap gap-3 justify-end mt-auto">
             <button
               onClick={() => handleEditClick(job.id)}
-              className="border border-gray-300 rounded-md px-3 py-1 cursor-pointer hover:bg-gray-200"
+              className="border border-jobcard-border text-text rounded-md px-3 py-1 cursor-pointer hover:bg-jobcard-button-hover"
             >
               Edit
             </button>
             <button
               onClick={() => onDelete(job.id)}
-              className="border border-gray-300 rounded-md px-3 cursor-pointer hover:bg-gray-200"
+              className="border border-jobcard-border text-text rounded-md px-3 cursor-pointer hover:bg-jobcard-button-hover"
             >
               Delete
             </button>

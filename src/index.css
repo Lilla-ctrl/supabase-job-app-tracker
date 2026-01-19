@@ -7,8 +7,10 @@
   --color-secondary: #fafafa; /* darker background color for cards */
   --color-button: #53a8b6; /* dark color for buttons */
   --color-button-hover: #319795; /* dark teal for hover */
-  --color-button-text: #fff; 
+  --color-button-text: #fff;
   --color-text: #041122; /* dark color for text */
+  --color-jobcard-button-hover: #ececec;
+  --color-jobcard-border: #cbd5e0;
 }
 
 @layer theme {
@@ -17,7 +19,9 @@
     --color-secondary: #0e2e3b; /* lighter background color for cards */
     --color-button: #d2c1b6; /* light color for buttons */
     --color-button-hover: #e0d9d9; /* dark teal for hover */
-    --color-button-text: #0e2e3b; 
+    --color-button-text: #0e2e3b;
     --color-text: #d1dbbd; /* light color for text */
+    --color-jobcard-button-hover: #314357;
+    --color-jobcard-border: #4a5568;
   }
 }

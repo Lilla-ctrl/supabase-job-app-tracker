@@ -7,12 +7,14 @@ export default function Header({
   setFilterStatus,
   sortOrder,
   setSortOrder,
-  logout
+  logout,
+  toggleTheme
 }) {
   return (
     <>
       <div>
         <button onClick={logout}>Log out</button>
+        <button onClick={toggleTheme}>change theme</button>
       </div>
       <div>
         <h1 className="text-gray-800 text-4xl font-medium text-center mt-3">

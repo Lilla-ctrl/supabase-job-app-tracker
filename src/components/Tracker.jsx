@@ -1,10 +1,9 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Jobcard from "./Jobcard";
 import Modal from "./Modal";
 import Header from "./Header";
 import { filterJobsByStatus, sortJobs } from "../helpers/jobUtils";
 import { useJobs } from "../hooks/useJobs";
-import { ThemeContext } from "../context/ThemeContext.jsx";
 
 export default function Tracker() {
   const empty_job = {
@@ -25,8 +24,6 @@ export default function Tracker() {
 
   const { jobs, deleteJob, addJob, updateJob, logout, loading, error } =
     useJobs();
-
-  const { theme, toggleTheme } = useContext(ThemeContext);
 
   /* Functions */
   async function handleAddJob(job) {

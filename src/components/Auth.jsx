@@ -36,7 +36,7 @@ export default function Auth() {
   return (
     <>
       <div className="bg-primary transition-colors duration-500 fixed inset-0 flex items-center justify-center min-h-screen ">
-        <div className="bg-secondary p-6 flex justify-center rounded-xl shadow-lg w-64">
+        <div className="bg-secondary p-8 flex flex-col justify-center rounded-2xl shadow-xl border border-jobcard-border w-80 transition-colors duration-500">
           <div>
             <div className="text-text text-xl mb-4">
               <h2>{isSigningUp ? "Sign Up" : "Sign In"}</h2>
@@ -48,7 +48,7 @@ export default function Auth() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="text-sm text-text border border-gray-300 shadow-sm p-1 mb-5 w-full focus:border-teal-400 focus:ring-teal-600"
+                  className="text-sm text-text transition-all duration-300 bg-primary border border-jobcard-border rounded-lg outline-none  shadow-sm p-2 mb-5 w-full focus:ring-2 focus:ring-button/50 focus:border-button"
                 />
               </div>
               <div>
@@ -57,7 +57,7 @@ export default function Auth() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="border border-gray-300 shadow-sm p-1 mb-5 w-full focus:border-teal-400 focus:ring-teal-600"
+                  className="text-sm text-text transition-all duration-300 bg-primary border border-jobcard-border rounded-lg outline-none  shadow-sm p-2 mb-5 w-full focus:ring-2 focus:ring-button/50 focus:border-button"
                 />
               </div>
 
@@ -68,7 +68,7 @@ export default function Auth() {
                     type="text"
                     value={user}
                     onChange={(e) => setUser(e.target.value)}
-                    className="border border-gray-300 shadow-sm p-1 mb-5 w-full focus:border-teal-400 focus:ring-teal-600"
+                    className="text-sm text-text transition-all duration-300 bg-primary border border-jobcard-border rounded-lg outline-none  shadow-sm p-2 mb-5 w-full focus:ring-2 focus:ring-button/50 focus:border-button"
                   />
                 </>
               )}
@@ -76,13 +76,13 @@ export default function Auth() {
               <div>
                 <button
                   type="submit"
-                  className="bg-button text-button-text text-sm font-medium py-2 px-3 rounded-full w-full hover:bg-button-hover cursor-pointer"
+                  className="bg-button text-button-text text-sm font-medium py-2 px-3 mb-1 rounded-full w-full hover:bg-button-hover cursor-pointer"
                 >
                   {isSigningUp ? "Sign Up" : "Sign In"}
                 </button>
               </div>
               <div className="flex justify-center">
-                <div className="text-sm text-text mb-3">
+                <div className="text-sm text-text mb-">
                   {isSigningUp ? "Already a member?" : "Not a member yet?"}
                   <button
                     onClick={() => setIsSigningUp(!isSigningUp)}

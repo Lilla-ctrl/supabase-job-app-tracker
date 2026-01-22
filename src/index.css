@@ -1,28 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #ececec; /* light background color */
-  --color-secondary: #fafafa; /* darker background color for cards */
-  --color-button: #53a8b6; /* dark color for buttons */
-  --color-button-hover: #319795; /* dark teal for hover */
-  --color-button-text: #fff;
-  --color-text: #041122; /* dark color for text */
+  --color-primary: #f8fafc; /* ghost white for background color */
+  --color-secondary: #ffffff; /* white background color for cards */
+  --color-button: #314357; /* dark navy for buttons */
+  --color-button-hover: #435b75; /* slightly ligther navy for hover */
+  --color-button-text: #ffffff; /* white for text color on buttons */
+  --color-text: #1e293b; /* dark color for text */
   --color-jobcard-button-hover: #ececec;
-  --color-jobcard-border: #cbd5e0;
+  --color-jobcard-border: #e2e8f0;
   --color-modal-button-hover: #4a5568;
   --color-modal-ring: #ffca28;
 }
 
 @layer theme {
   .dark {
-    --color-primary: #314357; /* dark background color */
-    --color-secondary: #0e2e3b; /* lighter background color for cards */
-    --color-button: #d2c1b6; /* light color for buttons */
-    --color-button-hover: #e0d9d9; /* dark teal for hover */
-    --color-button-text: #0e2e3b;
-    --color-text: #d1dbbd; /* light color for text */
+    --color-primary: #0f172a; /* deep nayv background color */
+    --color-secondary: #1e293b; /* slate blue background color for cards */
+    --color-button: #d2c1b6; /* cloud white for buttons */
+    --color-button-hover: #e0d9d9; /* lighter creme for hover */
+    --color-button-text: #0e2e3b; /* navy for text color on buttons */
+    --color-text: #f1f5f9; /* light color for text */
     --color-jobcard-button-hover: #314357;
-    --color-jobcard-border: #4a5568;
+    --color-jobcard-border: #334155;
     --color-modal-button-hover: #4a5568;
     --color-modal-ring: #4a5568;
   }

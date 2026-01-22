@@ -64,7 +64,7 @@ export default function Tracker() {
 
   /* Render */
   return (
-    <div className="bg-primary min-h-screen">
+    <div className="bg-primary transition-colors duration-500 min-h-screen">
       {isModalOpen && (
         <Modal
           onSubmit={handleAddJob}
@@ -86,7 +86,6 @@ export default function Tracker() {
         sortOrder={sortingOption}
         setSortOrder={setSortingOption}
         logout={logout}
-        toggleTheme={toggleTheme}
       />
       <Jobcard
         jobs={sortedJobs}

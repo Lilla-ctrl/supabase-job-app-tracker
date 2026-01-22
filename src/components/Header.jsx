@@ -8,13 +8,11 @@ export default function Header({
   sortOrder,
   setSortOrder,
   logout,
-  toggleTheme,
 }) {
   return (
     <>
       <div>
         <button onClick={logout}>Log out</button>
-        <button onClick={toggleTheme}>change theme</button>
       </div>
       <div>
         <h1 className="text-text text-4xl font-medium text-center mt-3">

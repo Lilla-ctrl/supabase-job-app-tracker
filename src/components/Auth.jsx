@@ -1,5 +1,4 @@
-import { useState, useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext.jsx";
+import { useState } from "react";
 import { supabase } from "../helpers/supabase-client";
 
 export default function Auth() {
@@ -7,8 +6,6 @@ export default function Auth() {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState("");
   const [isSigningUp, setIsSigningUp] = useState(true);
-
-  const { theme, toggleTheme } = useContext(ThemeContext);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -38,10 +35,9 @@ export default function Auth() {
 
   return (
     <>
-      <div className="bg-primary fixed inset-0 flex items-center justify-center min-h-screen ">
+      <div className="bg-primary transition-colors duration-500 fixed inset-0 flex items-center justify-center min-h-screen ">
         <div className="bg-secondary p-6 flex justify-center rounded-xl shadow-lg w-64">
           <div>
-            <button onClick={toggleTheme}>change theme</button>
             <div className="text-text text-xl mb-4">
               <h2>{isSigningUp ? "Sign Up" : "Sign In"}</h2>
             </div>

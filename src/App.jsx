@@ -3,6 +3,7 @@ import "./App.css";
 import Auth from "./components/Auth";
 import Tracker from "./components/Tracker";
 import { supabase } from "./helpers/supabase-client";
+import ThemeToggle from "./components/ThemeToggle";
 
 function App() {
   const [session, setSession] = useState(null);
@@ -26,7 +27,12 @@ function App() {
     };
   }, []);
 
-  return <>{session ? <Tracker session={session} /> : <Auth />}</>;
+  return (
+    <>
+      <ThemeToggle />
+      {session ? <Tracker session={session} /> : <Auth />}
+    </>
+  );
 }
 
 export default App;

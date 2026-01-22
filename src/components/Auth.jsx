@@ -36,10 +36,10 @@ export default function Auth() {
   return (
     <>
       <div className="bg-primary transition-colors duration-500 fixed inset-0 flex items-center justify-center min-h-screen ">
-        <div className="bg-secondary p-8 flex flex-col justify-center rounded-2xl shadow-xl border border-jobcard-border w-80 transition-colors duration-500">
+        <div className="bg-secondary p-8 flex flex-col justify-center rounded-2xl shadow-xl border border-jobcard-border/60 w-80 transition-colors duration-500">
           <div>
-            <div className="text-text text-xl mb-4">
-              <h2>{isSigningUp ? "Sign Up" : "Sign In"}</h2>
+            <div className="text-text text-xl mb-4 tracking-tight">
+              <h2>{isSigningUp ? "Create an account" : "Welcome back"}</h2>
             </div>
             <form onSubmit={handleSubmit}>
               <div>
@@ -76,9 +76,9 @@ export default function Auth() {
               <div>
                 <button
                   type="submit"
-                  className="bg-button text-button-text text-sm font-medium py-2 px-3 mb-1 rounded-full w-full hover:bg-button-hover cursor-pointer"
+                  className="bg-button text-button-text text-sm font-semibold py-2.5 px-4 mb-1 rounded-xl w-full hover:bg-button-hover hover:shadow-lg active:scale-95 transition-all duration-300 cursor-pointer shadow-md"
                 >
-                  {isSigningUp ? "Sign Up" : "Sign In"}
+                  {isSigningUp ? "Sign up" : "Sign in"}
                 </button>
               </div>
               <div className="flex justify-center">

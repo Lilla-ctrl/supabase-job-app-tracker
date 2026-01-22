@@ -38,7 +38,7 @@ export default function Auth() {
 
   return (
     <>
-      <div className=" bg-primary fixed inset-0 flex items-center justify-center min-h-screen ">
+      <div className="bg-primary fixed inset-0 flex items-center justify-center min-h-screen ">
         <div className="bg-secondary p-6 flex justify-center rounded-xl shadow-lg w-64">
           <div>
             <button onClick={toggleTheme}>change theme</button>

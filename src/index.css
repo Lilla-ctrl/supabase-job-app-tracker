@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
   --color-primary: #ececec; /* light background color */
   --color-secondary: #fafafa; /* darker background color for cards */

@@ -43,7 +43,7 @@ export default function Auth() {
             </div>
             <form onSubmit={handleSubmit}>
               <div>
-                <div className="text-sm text-text mb-1">Email address</div>
+                <div className="text-sm text-text/70 mb-1">Email address</div>
                 <input
                   type="email"
                   value={email}
@@ -52,7 +52,7 @@ export default function Auth() {
                 />
               </div>
               <div>
-                <div className="text-sm text-text mb-1">Password</div>
+                <div className="text-sm text-text/70 mb-1">Password</div>
                 <input
                   type="password"
                   value={password}
@@ -63,7 +63,7 @@ export default function Auth() {
 
               {isSigningUp && (
                 <>
-                  <div className="text-sm text-text mb-1">User name</div>
+                  <div className="text-sm text-text/70 mb-1">User name</div>
                   <input
                     type="text"
                     value={user}

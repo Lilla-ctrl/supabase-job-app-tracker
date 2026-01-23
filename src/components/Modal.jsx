@@ -6,11 +6,16 @@ export default function Modal({
   setFormData,
   onSave,
   emptyJob,
+  theme
 }) {
   return (
-    <div className="bg-black/60 fixed inset-0 flex items-center justify-center min-h-screen ">
-      <div className="bg-primary text-text p-6 rounded shadow-lg max-w-lg md:max-w-xl w-full ">
+    <div className="bg-black/40 backdrop-blur-sm fixed inset-0 flex items-center justify-center min-h-screen transition-all">
+      <div className="bg-secondary text-text p-8 rounded-2xl shadow-2xl max-w-lg md:max-w-xl w-full border border-jobcard-border transition-colors duration-500">
+        <h2 className="text-2xl font-semibold tracking-tight mb-6">
+          {isEditing ? "Edit application" : "New application"}
+        </h2>
         <form
+          className="space-y-3"
           onSubmit={(e) => {
             e.preventDefault();
             if (isEditing) {
@@ -20,9 +25,13 @@ export default function Modal({
             }
           }}
         >
-          <div>
-            <div className="space-y-4">
-              <label htmlFor="company" className="text-text text-lg">
+          {/* Company and position */}
+          <div className="grid grid-cols-1 gap-4">
+            <div>
+              <label
+                htmlFor="company"
+                className="block text-sm font-semibold uppercase tracking-widest text-text/70 mb-1 ml-1"
+              >
                 Company
               </label>
               <input
@@ -34,12 +43,15 @@ export default function Modal({
                 name="company"
                 id="company"
                 required
-                className="shadow-inner p-2 border border-jobcard-border rounded-md w-full focus:outline-none focus:ring-2 focus:ring-modal-ring
+                className="shadow-inner p-2.5 border border-jobcard-border rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-button/50 focus:border-button outline-none transition-all
 "
               />
             </div>
             <div className="space-y-4">
-              <label htmlFor="position" className="text-text text-lg">
+              <label
+                htmlFor="position"
+                className="block text-sm font-semibold uppercase tracking-widest text-text/70 mb-1 ml-1"
+              >
                 Position
               </label>
               <input
@@ -51,38 +63,109 @@ export default function Modal({
                 name="position"
                 id="position"
                 required
-                className="shadow-inner p-2 border border-jobcard-border rounded-md w-full focus:outline-none focus:ring-2 focus:ring-modal-ring
+                className="shadow-inner p-2.5 border border-jobcard-border rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-button/50 focus:border-button outline-none transition-all
 "
               />
             </div>
-            <div className="space-y-4">
-              <label htmlFor="contact" className="text-text text-lg">
-                Contact info
+
+            {/* Contact & Date */}
+            <div className="grid grid-cols-1 gap-4">
+              <div>
+                <label
+                  htmlFor="contact"
+                  className="block text-sm font-semibold uppercase tracking-widest text-text/60 mb-1 ml-1 "
+                >
+                  Contact info
+                </label>
+                <input
+                  value={selectedJob?.contact || ""}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      contact: e.target.value,
+                    }))
+                  }
+                  type="text"
+                  name="contact"
+                  id="contact"
+                  className="shadow-inner p-2.5 border border-jobcard-border rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-button/50 focus:border-button outline-none transition-all
+"
+                />
+              </div>
+              <label
+                htmlFor="date"
+                className="block text-sm font-semibold uppercase tracking-widest text-text/60 mb-1 ml-1 "
+              >
+                Date applied
               </label>
               <input
-                value={selectedJob?.contact || ""}
+                type="date"
+                id="date"
+                name="date"
+                style={{ colorScheme: theme === "dark" ? "dark" : "light" }}
+                value={selectedJob?.applied_at || ""}
                 onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, contact: e.target.value }))
+                  setFormData((prev) => ({
+                    ...prev,
+                    applied_at: e.target.value,
+                  }))
                 }
-                type="text"
-                name="contact"
-                id="contact"
-                className="shadow-inner p-2 border border-jobcard-border rounded-md w-full focus:outline-none focus:ring-2 focus:ring-modal-ring
+                className="shadow-inner p-2.5 border border-jobcard-border rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-button/50 focus:border-button outline-none transition-all
 "
               />
             </div>
-            <label htmlFor="date" className="text-text text-lg mr-2">
-              Date of application
-            </label>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              value={selectedJob?.applied_at || ""}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, applied_at: e.target.value }))
-              }
-            />
+
+            {/* Status dropdown */}
+            <div>
+              <label
+                htmlFor="status"
+                className="block text-sm font-semibold uppercase tracking-widest text-text/60 mb-1 ml-1"
+              >
+                Application Status
+              </label>
+              <select
+                value={selectedJob?.status || ""}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, status: e.target.value }))
+                }
+                name="status"
+                id="status-select"
+                className="shadow-inner bg-secondary p-2.5 border border-jobcard-border rounded-xl w-full text-text outline-none focus:ring-2 focus:ring-button/50 focus:border-button transition-all appearance-none
+              "
+              >
+                <option value="" className="bg-secondary text-text">
+                  Select status:
+                </option>
+                <option value="Applied" className="bg-secondary text-text">
+                  Applied
+                </option>
+                <option value="Interviewing" className="bg-secondary text-text">
+                  Interviewing
+                </option>
+                <option
+                  value="Offer received"
+                  className="bg-secondary text-text"
+                >
+                  Offer received
+                </option>
+                <option value="Rejected" className="bg-secondary text-text">
+                  Rejected
+                </option>
+                <option value="Unsolicited" className="bg-secondary text-text">
+                  Unsolicited
+                </option>
+              </select>
+            </div>
+
+            {/* Notes */}
+            <div>
+              <label
+                htmlFor="notes"
+                className="block text-sm font-semibold uppercase tracking-widest text-text/60 mb-1 ml-1"
+              >
+                Notes
+              </label>
+            </div>
             <textarea
               name="notes"
               value={selectedJob?.notes || ""}
@@ -91,30 +174,17 @@ export default function Modal({
               }
               id="notes"
               rows="4"
-              placeholder=" Add any notes here"
-              className="border mt-4 mb-2 w-full rounded-md border-jobcard-border shadow-sm focus:outline-none focus:ring-2 focus:ring-modal-ring sm:text-md"
+              placeholder="Add any notes here"
+              className="shadow-inner p-2.5 border border-jobcard-border rounded-xl w-full text-text outline-none focus:ring-2 focus:ring-button/50 focus:border-button transition-all resize-none
+              "
             ></textarea>
-            <select
-              value={selectedJob?.status || ""}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, status: e.target.value }))
-              }
-              name="status"
-              id="status-select"
-              className="bg-primary shadow-inner p-2 border border-jobcard-border rounded-md w-full text-text focus:outline-none focus:ring-2 focus:ring-modal-ring"
-            >
-              <option value="">Application status</option>
-              <option value="Applied">Applied</option>
-              <option value="Interviewing">Interviewing</option>
-              <option value="Offer received">Offer received</option>
-              <option value="Rejected">Rejected</option>
-              <option value="Unsolicited">Unsolicited</option>
-            </select>
           </div>
 
+          {/* Buttons */}
+          <div className="flex gap-4"></div>
           <button
             type="submit"
-            className="border border-jobcard-border text-text rounded-md px-3 py-1 mt-5 hover:bg-modal-button-hover cursor-pointer"
+            className="border mr-3 border-jobcard-border text-text font-semibold rounded-xl px-4 py-2 mt-5 hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
           >
             Save
           </button>
@@ -124,7 +194,7 @@ export default function Modal({
               isOpen(false);
             }}
             type="button"
-            className="border border-jobcard-border text-text rounded-md px-3 py-1 mt-5 hover:bg-modal-button-hover cursor-pointer ml-2"
+            className="border border-jobcard-border text-text font-semibold rounded-xl px-4 py-2 mt-5 hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
           >
             Cancel
           </button>

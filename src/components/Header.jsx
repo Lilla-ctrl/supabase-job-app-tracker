@@ -15,13 +15,13 @@ export default function Header({
         <button onClick={logout}>Log out</button>
       </div>
       <div>
-        <h1 className="text-text text-4xl font-medium text-center mt-3">
+        <h1 className="text-text text-4xl text-center tracking-tight font-semibold mt-3">
           Job Application Tracker
         </h1>
       </div>
       <div className="flex flex-wrap gap-3 justify-center my-4">
         <button
-          className="bg-button text-button-text font-medium p-1 px-3 rounded-md shadow-lg hover:bg-button-hover cursor-pointer"
+          className="bg-button text-button-text font-semibold p-1 px-3 rounded-md shadow-lg hover:bg-button-hover cursor-pointer"
           onClick={() => {
             isEditing(false);
             newJob(emptyJob);

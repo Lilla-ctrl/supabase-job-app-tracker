@@ -38,7 +38,7 @@ export default function Auth() {
       <div className="bg-primary transition-colors duration-500 fixed inset-0 flex items-center justify-center min-h-screen ">
         <div className="bg-secondary p-8 flex flex-col justify-center rounded-2xl shadow-xl border border-jobcard-border/60 w-80 transition-colors duration-500">
           <div>
-            <div className="text-text text-xl mb-4 tracking-tight">
+            <div className="text-text text-xl mb-4 tracking-tight font-semibold">
               <h2>{isSigningUp ? "Create an account" : "Welcome back"}</h2>
             </div>
             <form onSubmit={handleSubmit}>

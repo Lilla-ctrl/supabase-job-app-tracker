@@ -10,7 +10,7 @@ export default function Modal({
 }) {
   return (
     <div
-      className={`fixed inset-0 flex items-center justify-center min-h-screen z-50 transition-all duration-500 ${
+      className={`fixed inset-0 flex items-end sm:items-center justify-center min-h-screen z-50 transition-all duration-500 p-0 sm:p-4 ${
         isOpen
           ? "opacity-100 backdrop-blur-sm pointer-events-auto"
           : "opacity-0 backdrop-blur-0 pointer-events-none"
@@ -20,15 +20,17 @@ export default function Modal({
         className="absolute inset-0 bg-black/40"
         onClick={() => isOpen(false)}
       />
-        <div
-          className={`relative bg-secondary text-text p-8 rounded-2xl shadow-2xl max-w-lg md:max-w-xl w-full border border-jobcard-border transition-all duration-500 ease-out-back
+      <div
+        className={`relative bg-secondary text-text sm:max-w-lg p-8 rounded-2xl shadow-2xl max-w-lg md:max-w-xl w-full border border-jobcard-border transition-all duration-500 ease-out-back rounded-t-4xl sm:rounded-2xl max-h-[90vh] flex flex-col
             ${
               isOpen
                 ? "translate-y-0 scale-100 opacity-100 blur-none"
                 : "translate-y-12 scale-95 opacity-0 blure-md"
             }
           `}
-        >
+      >
+        <div className="overlow-y-auto p-6 md:p-8 custom-scrollbar">
+          <div className="w-12 h-1.5 bg-text/10 rounded-full mx-auto mb-6 sm:hidden"></div>
           <h2 className="text-2xl font-semibold tracking-tight mb-6">
             {isEditing ? "Edit application" : "New application"}
           </h2>
@@ -231,5 +233,6 @@ export default function Modal({
           </form>{" "}
         </div>
       </div>
+    </div>
   );
 }

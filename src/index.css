@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-link: "JetBrains Mono", monospace;
   --color-primary: #f8fafc; /* ghost white for background color */
   --color-secondary: #ffffff; /* white background color for cards */
   --color-button: #314357; /* dark navy for buttons */

@@ -29,7 +29,7 @@ export default function Modal({
             }
           `}
       >
-        <div className="overlow-y-auto p-6 md:p-8 custom-scrollbar">
+        <div className="overflow-y-auto p-6 md:p-8 custom-scrollbar min-h-0">
           <div className="w-12 h-1.5 bg-text/10 rounded-full mx-auto mb-6 sm:hidden"></div>
           <h2 className="text-2xl font-semibold tracking-tight mb-6">
             {isEditing ? "Edit application" : "New application"}

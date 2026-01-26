@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Auth from "./components/Auth";
 import Tracker from "./components/Tracker";
+import Footer from "./components/Footer";
 import { supabase } from "./helpers/supabase-client";
 import ThemeToggle from "./components/ThemeToggle";
 
@@ -30,7 +31,9 @@ function App() {
   return (
     <>
       <ThemeToggle />
+
       {session ? <Tracker session={session} /> : <Auth />}
+      <Footer />
     </>
   );
 }

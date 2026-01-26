@@ -21,9 +21,9 @@ export default function Footer() {
       {/* Footer container */}
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-sm tracking-tight text-text px-6 py-8">
         {/* Left side: Brand */}
-        <div className="text-text/60">
-          <span className="font-semibold text-text/80 mx-auto">© 2026 Lilla </span>
-          <span className="hidden sm:inline text-text/40"> — </span>
+        <div className="text-text/60 flex flex-col items-center sm:flex-row sm:gap-2">
+          <span className="font-semibold text-text/80 mx-auto text-center sm:inline">© 2026 Lilla</span>
+          <span className="hidden sm:inline text-text/40">—</span>
           <span className="block sm:inline">Front-end Developer</span>
         </div>
         {/* Right side: Github */}

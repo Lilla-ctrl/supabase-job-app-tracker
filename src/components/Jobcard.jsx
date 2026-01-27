@@ -1,50 +1,84 @@
-import { StickyNote } from "lucide-react";
+import {
+  StickyNote,
+  Calendar,
+  User,
+  Briefcase,
+  Trash2,
+  Edit3,
+} from "lucide-react";
 
 export default function Jobcard({ job, onDeleteRequest, handleEditClick }) {
   const statusColors = {
-    Applied: "bg-blue-100 text-blue-800",
-    Interviewing: "bg-green-200 text-green-900",
-    "Offer received": "bg-yellow-100 text-yellow-800",
-    Rejected: "bg-red-100 text-red-800",
-    Unsolicited: "bg-gray-200 text-gray-600",
+    Applied: "bg-blue-500/10 text-blue-500 border border-blue-500/20",
+    Interviewing:
+      "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20",
+    "Offer received":
+      "bg-amber-500/10 text-amber-600 border border-amber-500/20",
+    Rejected: "bg-rose-500/10 text-rose-600 border border-rose-500/20",
+    Unsolicited: "bg-slate-500/10 text-slate-500 border border-slate-500/20",
   };
 
   return (
-    <div className="w-75 bg-secondary p-4 rounded-xl shadow-md border border-jobcard-border flex flex-col justify-between">
-      <h2 className="text-2xl text-text mb-2 tracking-tight font-semibold">
-        {job.company}
-      </h2>
-      <div className="text-text flex flex-wrap justify-between">
-        <h3>{job.position}</h3>
-        <h3>{job.applied_at}</h3>
-      </div>
-      <h3 className="text-text">{job.contact}</h3>
+    <div className="w-80 bg-secondary p-5 rounded-2xl shadow-sm border border-jobcard-border flex flex-col gap-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+      {/* Header */}
       <div>
-        {job.notes && (
-          <div className="flex items-start gap-2 mt-3 py-1 bg-yellow-50 border border-yellow-400 text-black text-md rounded-md">
-            <StickyNote className="w-5 h-5 mt-1 ml-1 text-yellow-500" />
-            <p className="whitespace-pre-line wrap-anywhere">{job.notes}</p>
-          </div>
-        )}
+        <div className="flex justify-between items-start">
+          <h2 className="text-xl text-text mb-2 tracking-tight font-bold truncate pr-2">
+            {job.company}
+          </h2>
+          {job.status && (
+            <span
+              className={`px-2.5 py-1.5 rounded-full text-xs font-bold border ${
+                statusColors[job.status]
+              }`}
+            >
+              {job.status.toUpperCase()}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <Briefcase className="w-3.5 h-3.5 text-text" />
+          <p className="text-text">{job.position}</p>
+        </div>
       </div>
-      <h3
-        className={`w-fit tracking-wide mt-2 px-3 py-1 rounded text-sm font-medium ${
-          statusColors[job.status]
-        }`}
-      >
-        {job.status}
-      </h3>
-      <div className="flex flex-wrap gap-3 justify-end mt-auto">
+
+      {/* Details */}
+      <div className="grid grid-cols-2 gap-2 text-xs text-text/770 border-y border-jobcard-border py-3">
+        <div className="flex items-center gap-2">
+          <Calendar className="w-3.5 h-3.5 text-text/40" />
+          <span className="text-text">{job.applied_at}</span>
+        </div>
+        <div className="flex items-center gap-2 min-w-0">
+          <User className="w-3.5 h-3.5 text-text/40 shrink-0" />
+          <span className="text-text truncate" title={job.contact}>
+            {job.contact || "No contact"}
+          </span>
+        </div>
+      </div>
+
+      {/* Notes */}
+      {job.notes && (
+        <div className="bg-text/3 p-3 rounded-lg border border-jobcard-border/30 italic text-sm text-text/80 relative overflow-hidden">
+          <div className="absolute left-0 top-0 h-full w-1 bg-amber-400/50" />
+          <p className="whitespace-pre-line leading-relaxed wrap-break-word">
+            {job.notes}
+          </p>
+        </div>
+      )}
+
+      {/* Buttons */}
+      <div className="flex gap-2 mt-auto pt-2">
         <button
           onClick={() => handleEditClick(job.id)}
-          className="border border-jobcard-border text-text rounded-md px-3 py-1 cursor-pointer hover:bg-jobcard-button-hover"
+          className="flex-1 flex items-center justify-center gap-2 border border-jobcard-border text-text text-sm font-medium transition-colors rounded-lg py-2 cursor-pointer hover:bg-jobcard-button-hover active:scale-95"
         >
           Edit
         </button>
         <button
           onClick={() => onDeleteRequest(job)}
-          className="border border-jobcard-border text-text rounded-md px-3 cursor-pointer hover:bg-jobcard-button-hover"
+          className="flex-1 flex items-center justify-center gap-2 border border-rose-500/20 text-rose-600 text-sm font-medium transition-colors rounded-lg py-2 cursor-pointer hover:bg-rose-500/10 active:scale-95"
         >
+          <Trash2 className="w-4 h-5" />
           Delete
         </button>
       </div>

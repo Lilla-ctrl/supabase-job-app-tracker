@@ -4,6 +4,7 @@ import Modal from "./Modal";
 import Header from "./Header";
 import { filterJobsByStatus, sortJobs } from "../helpers/jobUtils";
 import { useJobs } from "../hooks/useJobs";
+import DeleteModal from "./DeleteModal";
 
 export default function Tracker() {
   const empty_job = {
@@ -21,6 +22,7 @@ export default function Tracker() {
   const [newJob, setNewJob] = useState(empty_job);
   const [statusForFilter, setStatusForFilter] = useState(null);
   const [sortingOption, setSortingOption] = useState(null);
+  const [itemToDelete, setItemToDelete] = useState(null);
 
   const { jobs, deleteJob, addJob, updateJob, logout, loading, error } =
     useJobs();
@@ -55,6 +57,17 @@ export default function Tracker() {
     } catch {}
   }
 
+  function handleSelectForDeletion(job) {
+    setItemToDelete(job);
+  }
+
+  async function handleConfirmDelete() {
+    try {
+      await deleteJob(itemToDelete.id);
+      setItemToDelete(null);
+    } catch {}
+  }
+
   /* Filtering and sorting */
   const filteredJobs = filterJobsByStatus(jobs, statusForFilter);
   const sortedJobs = sortJobs(filteredJobs, sortingOption);
@@ -73,6 +86,15 @@ export default function Tracker() {
           emptyJob={empty_job}
         />
       )}
+      {itemToDelete && (
+        <DeleteModal
+          isOpen={!!itemToDelete}
+          title={itemToDelete?.company_name}
+          onClose={() => setItemToDelete(null)}
+          onConfirm={handleConfirmDelete}
+        />
+      )}
+
       <Header
         isEditing={setIsEditing}
         newJob={setNewJob}
@@ -86,7 +108,7 @@ export default function Tracker() {
       />
       <Jobcard
         jobs={sortedJobs}
-        onDelete={deleteJob}
+        onDeleteRequest={handleSelectForDeletion}
         handleEditClick={handleEditClick}
       />
     </div>

@@ -1,6 +1,6 @@
 import { StickyNote } from "lucide-react";
 
-export default function Jobcard({ jobs, onDelete, handleEditClick }) {
+export default function Jobcard({ jobs, onDeleteRequest, handleEditClick }) {
   const statusColors = {
     Applied: "bg-blue-100 text-blue-800",
     Interviewing: "bg-green-200 text-green-900",
@@ -55,7 +55,7 @@ export default function Jobcard({ jobs, onDelete, handleEditClick }) {
               Edit
             </button>
             <button
-              onClick={() => onDelete(job.id)}
+              onClick={() => onDeleteRequest(job)}
               className="border border-jobcard-border text-text rounded-md px-3 cursor-pointer hover:bg-jobcard-button-hover"
             >
               Delete

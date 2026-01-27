@@ -31,7 +31,7 @@ function App() {
 
   return (
     <>
-      <Toaster position="bottom-center" />
+      <Toaster position="top-center" />
       <ThemeToggle />
 
       {session ? <Tracker session={session} /> : <Auth />}

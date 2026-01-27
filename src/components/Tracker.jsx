@@ -5,6 +5,7 @@ import Header from "./Header";
 import { filterJobsByStatus, sortJobs } from "../helpers/jobUtils";
 import { useJobs } from "../hooks/useJobs";
 import DeleteModal from "./DeleteModal";
+import toast from "react-hot-toast";
 
 export default function Tracker() {
   const empty_job = {
@@ -63,12 +64,16 @@ export default function Tracker() {
   }
 
   async function handleConfirmDelete() {
+    setIsDeleting(true);
     try {
-      setIsDeleting(true);
       await deleteJob(itemToDelete.id);
+      toast.success(`${itemToDelete.company} succesfully deleted.`);
+    } catch {
+      toast.error(`Failed to delete job.`);
+    } finally {
       setIsDeleting(false);
       setItemToDelete(null);
-    } catch {}
+    }
   }
 
   /* Filtering and sorting */

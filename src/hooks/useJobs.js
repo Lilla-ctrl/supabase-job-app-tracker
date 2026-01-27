@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../helpers/supabase-client";
+import toast from "react-hot-toast";
 
 export function useJobs() {
   const [jobs, setJobs] = useState([]);
@@ -7,17 +8,21 @@ export function useJobs() {
   const [error, setError] = useState([]);
 
   async function fetchJobs() {
-    const { error, data } = await supabase
-      .from("job_applications")
-      .select("*")
-      .order("created_at", { ascending: true });
+    try {
+      setLoading(true);
+      const { error, data } = await supabase
+        .from("job_applications")
+        .select("*")
+        .order("created_at", { ascending: true });
 
-    if (error) {
+      if (error) throw error;
+      setJobs(data);
+    } catch (error) {
       console.error("Error reading job:", error.message);
-      return;
+      toast.error("Failed to load applications. Please refresh.");
+    } finally {
+      setLoading(false);
     }
-
-    setJobs(data);
   }
 
   async function addJob(payload) {

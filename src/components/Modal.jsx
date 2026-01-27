@@ -213,23 +213,24 @@ export default function Modal({
             </div>
 
             {/* Buttons */}
-            <div className="flex gap-4"></div>
-            <button
-              type="submit"
-              className="border mr-3 border-jobcard-border text-text font-semibold rounded-xl px-4 py-2 mt-5 hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
-            >
-              Save
-            </button>
-            <button
-              onClick={() => {
-                setFormData(emptyJob);
-                isOpen(false);
-              }}
-              type="button"
-              className="border border-jobcard-border text-text font-semibold rounded-xl px-4 py-2 mt-5 hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
-            >
-              Cancel
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  setFormData(emptyJob);
+                  isOpen(false);
+                }}
+                type="button"
+                className="border border-jobcard-border text-text font-semibold rounded-xl px-4 py-2 mt-5 hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="border border-jobcard-border text-text font-semibold rounded-xl px-4 py-2 mt-5 hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
+              >
+                Save
+              </button>
+            </div>
           </form>{" "}
         </div>
       </div>

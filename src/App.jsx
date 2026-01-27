@@ -5,6 +5,7 @@ import Tracker from "./components/Tracker";
 import Footer from "./components/Footer";
 import { supabase } from "./helpers/supabase-client";
 import ThemeToggle from "./components/ThemeToggle";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [session, setSession] = useState(null);
@@ -30,6 +31,7 @@ function App() {
 
   return (
     <>
+      <Toaster position="bottom-center" />
       <ThemeToggle />
 
       {session ? <Tracker session={session} /> : <Auth />}

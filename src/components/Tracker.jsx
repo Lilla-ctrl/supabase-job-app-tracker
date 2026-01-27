@@ -115,11 +115,26 @@ export default function Tracker() {
         setSortOrder={setSortingOption}
         logout={logout}
       />
-      <Jobcard
-        jobs={sortedJobs}
-        onDeleteRequest={handleSelectForDeletion}
-        handleEditClick={handleEditClick}
-      />
+      {loading ? (
+        <div className="flex justify-center mt-10">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-text" />
+        </div>
+      ) : jobs.length === 0 ? (
+        <p className="text-center text-2xl text-text mt-6">
+          No applications yet.
+        </p>
+      ) : (
+        <div className="flex flex-wrap justify-center gap-6">
+          {jobs.map((job) => (
+            <Jobcard
+              key={job.id}
+              job={job}
+              onDeleteRequest={handleSelectForDeletion}
+              handleEditClick={handleEditClick}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

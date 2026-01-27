@@ -23,6 +23,7 @@ export default function Tracker() {
   const [statusForFilter, setStatusForFilter] = useState(null);
   const [sortingOption, setSortingOption] = useState(null);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const { jobs, deleteJob, addJob, updateJob, logout, loading, error } =
     useJobs();
@@ -63,7 +64,9 @@ export default function Tracker() {
 
   async function handleConfirmDelete() {
     try {
+      setIsDeleting(true);
       await deleteJob(itemToDelete.id);
+      setIsDeleting(false);
       setItemToDelete(null);
     } catch {}
   }
@@ -89,9 +92,10 @@ export default function Tracker() {
       {itemToDelete && (
         <DeleteModal
           isOpen={!!itemToDelete}
-          title={itemToDelete?.company_name}
+          title={itemToDelete?.company}
           onClose={() => setItemToDelete(null)}
           onConfirm={handleConfirmDelete}
+          isDeleting={isDeleting}
         />
       )}
 

@@ -63,10 +63,10 @@ export default function Auth() {
 
               {isSigningUp && (
                 <>
-                  <div className="text-sm text-text/70 mb-1">User name</div>
+                  <div className="text-sm text-text/70 mb-1">First name</div>
                   <input
                     type="text"
-                    value={user}
+                    value={firstname}
                     onChange={(e) => setUser(e.target.value)}
                     className="text-sm text-text transition-all duration-300 bg-primary border border-jobcard-border rounded-lg outline-none  shadow-sm p-2 mb-5 w-full focus:ring-2 focus:ring-button/50 focus:border-button"
                   />

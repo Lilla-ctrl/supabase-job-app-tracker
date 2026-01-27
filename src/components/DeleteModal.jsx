@@ -7,7 +7,7 @@ export default function DeleteModal({
 }) {
   return (
     <div
-      className={`fixed inset-0 flex items-end sm:items-center justify-center min-h-screen z-50 transition-all duration-500 p-0 sm:p-4 ${
+      className={`fixed inset-0 flex items-center justify-center min-h-screen z-50 transition-all duration-500 p-0 sm:p-4 ${
         isOpen
           ? "opacity-100 backdrop-blur-sm pointer-events-auto"
           : "opacity-0 backdrop-blur-0 pointer-events-none"

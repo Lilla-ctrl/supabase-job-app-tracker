@@ -4,7 +4,7 @@ import { supabase } from "../helpers/supabase-client";
 export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [isSigningUp, setIsSigningUp] = useState(true);
 
   async function handleSubmit(event) {
@@ -66,8 +66,8 @@ export default function Auth() {
                   <div className="text-sm text-text/70 mb-1">First name</div>
                   <input
                     type="text"
-                    value={firstname}
-                    onChange={(e) => setUser(e.target.value)}
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
                     className="text-sm text-text transition-all duration-300 bg-primary border border-jobcard-border rounded-lg outline-none  shadow-sm p-2 mb-5 w-full focus:ring-2 focus:ring-button/50 focus:border-button"
                   />
                 </>

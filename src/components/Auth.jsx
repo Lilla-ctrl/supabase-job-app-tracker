@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../helpers/supabase-client";
+import toast from "react-hot-toast";
 
 export default function Auth() {
   const [email, setEmail] = useState("");
@@ -22,19 +23,32 @@ export default function Auth() {
       });
 
       if (signUpError) {
-        console.error("Error signing up:", signUpError.message);
+        console.error(signUpError.message);
+        toast.error("An error happened during sing up. Please try again.");
         return;
+      }
+
+      if (data.user && !data.session) {
+        toast.success("Check your inbox to confirm your email!", {
+          duration: 6000,
+          icon: "📧",
+        });
+
+        setEmail("");
+        setPassword("");
+        setFirstName("");
       }
     } else {
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
-
       if (signInError) {
-        console.error("Error signing in:", signInError.message);
+        console.error(signInError.message);
+        toast.error(signInError.message);
         return;
       }
+      toast.success("Welcome back!");
     }
   }
 

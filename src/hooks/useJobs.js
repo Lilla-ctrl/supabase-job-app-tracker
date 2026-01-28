@@ -79,10 +79,14 @@ export function useJobs() {
 
   async function logout() {
     try {
+      const name = user?.user_metadata?.first_name || "there";
+      toast(`Bye ${name}, have a great day!`, {
+        icon: "👋",
+      });
       await supabase.auth.signOut();
     } catch (err) {
       console.error("Error logging out:", err.message);
-      throw err;
+      toast.error("Logout failed. Please try again.")
     }
   }
 

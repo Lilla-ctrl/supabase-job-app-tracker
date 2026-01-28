@@ -6,6 +6,14 @@ export function useJobs() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState([]);
+  const [user, setUser] = useState(null);
+
+  async function fetchUser() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    setUser(user);
+  }
 
   async function fetchJobs() {
     try {
@@ -80,6 +88,7 @@ export function useJobs() {
 
   useEffect(() => {
     fetchJobs();
+    fetchUser();
   }, []);
 
   useEffect(() => {
@@ -131,6 +140,7 @@ export function useJobs() {
 
   return {
     jobs,
+    user,
     deleteJob,
     addJob,
     updateJob,

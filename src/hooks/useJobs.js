@@ -96,9 +96,7 @@ export function useJobs() {
   }, []);
 
   useEffect(() => {
-    const session = supabase.auth.getSession();
-
-    if (!session) return;
+    if (!user) return;
 
     const insertChannel = supabase.channel("jobs-insert-channel");
     insertChannel
@@ -140,7 +138,7 @@ export function useJobs() {
       updateChannel.unsubscribe();
       deleteChannel.unsubscribe();
     };
-  }, []);
+  }, [user]);
 
   return {
     jobs,

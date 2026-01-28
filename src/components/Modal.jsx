@@ -1,5 +1,8 @@
+import { useEffect } from "react";
+
 export default function Modal({
   isOpen,
+  setIsOpen,
   isEditing,
   onSubmit,
   selectedJob,
@@ -8,6 +11,22 @@ export default function Modal({
   emptyJob,
   theme,
 }) {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, setIsOpen]);
+
   return (
     <div
       className={`fixed inset-0 flex items-end sm:items-center justify-center min-h-screen z-50 transition-all duration-500 p-0 sm:p-4 ${

@@ -85,7 +85,8 @@ export default function Tracker() {
       {isModalOpen && (
         <Modal
           onSubmit={handleAddJob}
-          isOpen={setIsModalOpen}
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
           isEditing={isEditing}
           selectedJob={newJob}
           setFormData={setNewJob}

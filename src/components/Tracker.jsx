@@ -26,8 +26,7 @@ export default function Tracker() {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const { jobs, deleteJob, addJob, updateJob, logout, loading, error } =
-    useJobs();
+  const { jobs, deleteJob, addJob, updateJob, loading, error } = useJobs();
 
   /* Functions */
   async function handleAddJob(job) {
@@ -113,7 +112,6 @@ export default function Tracker() {
         setFilterStatus={setStatusForFilter}
         sortOrder={sortingOption}
         setSortOrder={setSortingOption}
-        logout={logout}
       />
       {loading ? (
         <div className="flex justify-center mt-10">

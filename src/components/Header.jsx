@@ -1,3 +1,5 @@
+import { useJobs } from "../hooks/useJobs";
+
 export default function Header({
   isEditing,
   newJob,
@@ -7,13 +9,19 @@ export default function Header({
   setFilterStatus,
   sortOrder,
   setSortOrder,
-  logout,
 }) {
+  const { user, logout } = useJobs();
+  console.log(user)
+  const firstName = user?.user_metadata?.first_name || "User";
+  console.log(firstName)
+
   return (
     <header className="w-full max-w-7xl mx-auto px-6 py-8">
       {/* Utility bar */}
       <div className="flex justify-start items-center gap-4 mb-8 text-sm">
-        <span className="text-text/70 font-medium">Welcome, userName!</span>
+        <span className="text-text/70 font-medium">
+          Welcome, {firstName}!
+        </span>
         <button
           onClick={logout}
           className="text-text/60 hover:text-text transition-colors border-l-2 border-jobcard-border pl-4 cursor-pointer"

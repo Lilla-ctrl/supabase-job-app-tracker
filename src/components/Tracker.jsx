@@ -124,7 +124,7 @@ export default function Tracker() {
         </p>
       ) : (
         <div className="flex flex-wrap justify-center gap-6">
-          {jobs.map((job) => (
+          {sortedJobs.map((job) => (
             <Jobcard
               key={job.id}
               job={job}

@@ -37,7 +37,7 @@ export default function Modal({
     >
       <div
         className="absolute inset-0 bg-black/40"
-        onClick={() => isOpen(false)}
+        onClick={() => setIsOpen(false)}
       />
       <div
         className={`relative bg-secondary text-text sm:max-w-lg p-8 rounded-2xl shadow-2xl max-w-lg md:max-w-xl w-full border border-jobcard-border transition-all duration-500 ease-out-back rounded-t-4xl sm:rounded-2xl max-h-[90vh] flex flex-col

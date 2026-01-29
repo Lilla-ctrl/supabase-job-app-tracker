@@ -29,3 +29,9 @@
     --color-modal-ring: #4a5568;
   }
 }
+
+@layer base {
+  body {
+    @apply bg-primary transition-colors duration-500;
+  }
+}

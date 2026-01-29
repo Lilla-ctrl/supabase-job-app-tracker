@@ -30,13 +30,14 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Toaster position="top-center" />
       <ThemeToggle />
-
-      {session ? <Tracker session={session} /> : <Auth />}
+      <main className="grow">
+        {session ? <Tracker session={session} /> : <Auth />}
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

@@ -81,7 +81,7 @@ export default function Tracker() {
 
   /* Render */
   return (
-    <div className="bg-primary transition-colors duration-500 min-h-screen">
+    <div className="bg-primary transition-colors duration-500 flex-1">
       {isModalOpen && (
         <Modal
           onSubmit={handleAddJob}

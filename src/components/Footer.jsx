@@ -14,12 +14,12 @@ export default function Footer() {
   );
 
   return (
-    <footer className=" w-full bg-primary transition-colors duration-500 pt-10">
+    <footer className="w-full max-w-7xl mx-auto px-6 bg-primary transition-colors duration-500 pt-10">
       {/* Divider */}
       <div className="h-px w-full bg-linear-to-r from-slate-500 via-slate-300 to-transparent"></div>
 
       {/* Footer container */}
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-sm tracking-tight text-text px-6 py-8">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 pb-2 text-sm tracking-tight text-text">
         {/* Left side: Brand */}
         <div className="text-text/60 flex flex-col items-center sm:flex-row sm:gap-2">
           <span className="font-semibold text-text/80 mx-auto text-center sm:inline">© 2026 Lilla</span>

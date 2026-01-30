@@ -49,7 +49,7 @@ export default function Jobcard({ job, onDeleteRequest, handleEditClick }) {
         <div className="flex items-center gap-2 min-w-0">
           <User className="w-3.5 h-3.5 text-text/40 shrink-0" />
           <span className="text-text truncate" title={job.contact}>
-            {job.contact || "No contact"}
+            {job.contact}
           </span>
         </div>
       </div>

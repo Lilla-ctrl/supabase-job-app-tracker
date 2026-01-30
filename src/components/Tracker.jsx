@@ -26,7 +26,8 @@ export default function Tracker() {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const { jobs, deleteJob, addJob, updateJob, loading, error } = useJobs();
+  const { jobs, deleteJob, addJob, updateJob, loading, error, setError, getFriendlyMessage } =
+    useJobs();
 
   /* Functions */
   async function handleAddJob(job) {
@@ -67,8 +68,9 @@ export default function Tracker() {
     try {
       await deleteJob(itemToDelete.id);
       toast.success(`${itemToDelete.company} succesfully deleted.`);
-    } catch {
-      toast.error(`Failed to delete job.`);
+    } catch (err) {
+      console.error("Operation failed:", err);
+      setError(getFriendlyMessage(err));
     } finally {
       setIsDeleting(false);
       setItemToDelete(null);
@@ -114,9 +116,15 @@ export default function Tracker() {
         sortOrder={sortingOption}
         setSortOrder={setSortingOption}
       />
-      {error && (
-        <div className="p-4 bg-red-100 text-red-700 rounded-lg mb-4">
-          {error}
+      {error && error.length > 0 && (
+        <div className="p-4 bg-red-500/10 border border-red-500/50 text-red-500 rounded-lg mb-4 text-sm font-medium animate-in fade-in slide-in-from-top-2">
+          <span>{error}</span>
+          <button
+            onClick={() => setError(null)}
+            className="hover:bg-red-500/20 rounded-full p-1 transition-colors"
+          >
+            X
+          </button>
         </div>
       )}
       {loading ? (

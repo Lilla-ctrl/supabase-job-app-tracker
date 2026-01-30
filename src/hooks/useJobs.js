@@ -2,10 +2,20 @@ import { useState, useEffect } from "react";
 import { supabase } from "../helpers/supabase-client";
 import toast from "react-hot-toast";
 
+const getFriendlyMessage = (err) => {
+  if (
+    err?.message?.includes("fetch") ||
+    (typeof window !== "undefined" && !window.navigator.onLine)
+  ) {
+    return "Connection lost. Please check your internet and try again.";
+  }
+  return err?.message || "An unexpected error occured.";
+};
+
 export function useJobs() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState([]);
+  const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
 
   async function fetchUser() {
@@ -51,14 +61,14 @@ export function useJobs() {
 
       if (error) throw error;
     } catch (err) {
-      console.error("Error deleting job:", error.message);
+      console.error("Error deleting job:", err?.message || err);
       throw err;
     }
   }
 
   async function updateJob(job) {
+    setError(null);
     try {
-      setError(null);
       const { error } = await supabase
         .from("job_applications")
         .update({
@@ -74,7 +84,7 @@ export function useJobs() {
       if (error) throw error;
     } catch (err) {
       console.error("Error updating job:", err.message);
-      setError(err.message)
+      setError(getFriendlyMessage(err));
       throw err;
     }
   }
@@ -88,7 +98,7 @@ export function useJobs() {
       await supabase.auth.signOut();
     } catch (err) {
       console.error("Error logging out:", err.message);
-      toast.error("Logout failed. Please try again.")
+      toast.error("Logout failed. Please try again.");
     }
   }
 
@@ -151,6 +161,7 @@ export function useJobs() {
     logout,
     loading,
     error,
-    setError
+    setError,
+    getFriendlyMessage
   };
 }

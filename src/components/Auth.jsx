@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../helpers/supabase-client";
+import { Eye, EyeOff } from 'lucide-react';
 import toast from "react-hot-toast";
 
 export default function Auth() {
@@ -7,6 +8,7 @@ export default function Auth() {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [isSigningUp, setIsSigningUp] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -72,12 +74,20 @@ export default function Auth() {
               </div>
               <div>
                 <div className="text-sm text-text/70 mb-1">Password</div>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="text-sm text-text transition-all duration-300 bg-primary border border-jobcard-border rounded-lg outline-none  shadow-sm p-2 mb-5 w-full focus:ring-2 focus:ring-button/50 focus:border-button"
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="text-sm text-text transition-all duration-300 bg-primary border border-jobcard-border rounded-lg outline-none  shadow-sm px-2 py-2 pr-12 mb-5 w-full focus:ring-2 focus:ring-button/50 focus:border-button"
+                  />
+                  <button
+                    className="absolute right-2 p-1 text-xs text-text/50 hover:text-text mt-1 cursor-pointer"
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)} >
+                    {!showPassword ? <Eye /> : <EyeOff />}
+                  </button>
+                </div>
               </div>
 
               {isSigningUp && (

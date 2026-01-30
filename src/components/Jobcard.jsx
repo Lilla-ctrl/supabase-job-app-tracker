@@ -1,10 +1,8 @@
 import {
-  StickyNote,
   Calendar,
   User,
   Briefcase,
   Trash2,
-  Edit3,
 } from "lucide-react";
 
 export default function Jobcard({ job, onDeleteRequest, handleEditClick }) {

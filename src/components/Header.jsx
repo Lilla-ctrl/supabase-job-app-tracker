@@ -17,7 +17,7 @@ export default function Header({
     <header className="w-full max-w-7xl mx-auto px-6 py-8">
       {/* Utility bar */}
       <div className="flex justify-start items-center gap-4 mb-8 text-sm">
-        <span className="text-text/70 font-medium">Welcome, {firstName}!</span>
+        <span className="text-text/70 font-medium">{firstName ? `Welcome, ${firstName}!` : "Welcome!"}</span>
         <button
           onClick={logout}
           className="text-text/60 hover:text-text transition-colors border-l-2 border-jobcard-border pl-4 cursor-pointer"

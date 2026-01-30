@@ -114,6 +114,11 @@ export default function Tracker() {
         sortOrder={sortingOption}
         setSortOrder={setSortingOption}
       />
+      {error && (
+        <div className="p-4 bg-red-100 text-red-700 rounded-lg mb-4">
+          {error}
+        </div>
+      )}
       {loading ? (
         <div className="flex justify-center mt-10">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-text" />

@@ -58,6 +58,7 @@ export function useJobs() {
 
   async function updateJob(job) {
     try {
+      setError(null);
       const { error } = await supabase
         .from("job_applications")
         .update({
@@ -72,7 +73,8 @@ export function useJobs() {
 
       if (error) throw error;
     } catch (err) {
-      console.error("Error updateing job:", err.message);
+      console.error("Error updating job:", err.message);
+      setError(err.message)
       throw err;
     }
   }

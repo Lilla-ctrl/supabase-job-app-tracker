@@ -6,6 +6,7 @@ import { filterJobsByStatus, sortJobs } from "../helpers/jobUtils";
 import { useJobs } from "../hooks/useJobs";
 import DeleteModal from "./DeleteModal";
 import toast from "react-hot-toast";
+import ErrorMessage from "./ErrorMessage";
 
 export default function Tracker() {
   const empty_job = {
@@ -26,8 +27,16 @@ export default function Tracker() {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const { jobs, deleteJob, addJob, updateJob, loading, error, setError, getFriendlyMessage } =
-    useJobs();
+  const {
+    jobs,
+    deleteJob,
+    addJob,
+    updateJob,
+    loading,
+    error,
+    setError,
+    getFriendlyMessage,
+  } = useJobs();
 
   /* Functions */
   async function handleAddJob(job) {
@@ -116,17 +125,9 @@ export default function Tracker() {
         sortOrder={sortingOption}
         setSortOrder={setSortingOption}
       />
-      {error && error.length > 0 && (
-        <div className="p-4 bg-red-500/10 border border-red-500/50 text-red-500 rounded-lg mb-4 text-sm font-medium animate-in fade-in slide-in-from-top-2">
-          <span>{error}</span>
-          <button
-            onClick={() => setError(null)}
-            className="hover:bg-red-500/20 rounded-full p-1 transition-colors"
-          >
-            X
-          </button>
-        </div>
-      )}
+      
+      <ErrorMessage message={error} onClear={() => setError(null)} />
+    
       {loading ? (
         <div className="flex justify-center mt-10">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-text" />

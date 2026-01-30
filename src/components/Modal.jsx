@@ -29,7 +29,7 @@ export default function Modal({
 
   return (
     <div
-      className={`fixed inset-0 flex items-end sm:items-center justify-center min-h-screen z-50 transition-all duration-500 p-0 sm:p-4 ${
+      className={`fixed inset-0 flex items-center justify-center min-h-screen z-50 transition-all duration-500 ${
         isOpen
           ? "opacity-100 backdrop-blur-sm pointer-events-auto"
           : "opacity-0 backdrop-blur-0 pointer-events-none"
@@ -40,7 +40,7 @@ export default function Modal({
         onClick={() => setIsOpen(false)}
       />
       <div
-        className={`relative bg-secondary text-text sm:max-w-lg p-8 rounded-2xl shadow-2xl max-w-lg md:max-w-xl w-full border border-jobcard-border transition-all duration-500 ease-out-back rounded-t-4xl sm:rounded-2xl max-h-[90vh] flex flex-col
+        className={`relative bg-secondary text-text sm:max-w-lg rounded-2xl shadow-2xl max-w-lg md:max-w-xl w-full border border-jobcard-border transition-all duration-500 ease-out-back rounded-t-4xl sm:rounded-2xl max-h-[90vh] flex flex-col
             ${
               isOpen
                 ? "translate-y-0 scale-100 opacity-100 blur-none"
@@ -48,8 +48,7 @@ export default function Modal({
             }
           `}
       >
-        <div className="overflow-y-auto p-6 md:p-8 custom-scrollbar min-h-0">
-          <div className="w-12 h-1.5 bg-text/10 rounded-full mx-auto mb-6 sm:hidden"></div>
+        <div className="px-12 py-8 min-h-0">
           <h2 className="text-2xl font-semibold tracking-tight mb-6">
             {isEditing ? "Edit application" : "New application"}
           </h2>
@@ -85,7 +84,7 @@ export default function Modal({
                   name="company"
                   id="company"
                   required
-                  className="shadow-inner p-2.5 border border-jobcard-border rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-button/50 focus:border-button outline-none transition-all
+                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all
 "
                 />
               </div>
@@ -108,7 +107,7 @@ export default function Modal({
                   name="position"
                   id="position"
                   required
-                  className="shadow-inner p-2.5 border border-jobcard-border rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-button/50 focus:border-button outline-none transition-all
+                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all
 "
                 />
               </div>
@@ -133,7 +132,7 @@ export default function Modal({
                     type="text"
                     name="contact"
                     id="contact"
-                    className="shadow-inner p-2.5 border border-jobcard-border rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-button/50 focus:border-button outline-none transition-all
+                    className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all
 "
                   />
                 </div>
@@ -155,7 +154,7 @@ export default function Modal({
                       applied_at: e.target.value,
                     }))
                   }
-                  className="shadow-inner p-2.5 border border-jobcard-border rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-button/50 focus:border-button outline-none transition-all
+                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all
 "
                 />
               </div>
@@ -175,8 +174,8 @@ export default function Modal({
                   }
                   name="status"
                   id="status-select"
-                  className="shadow-inner bg-secondary p-2.5 border border-jobcard-border rounded-xl w-full text-text outline-none focus:ring-2 focus:ring-button/50 focus:border-button transition-all appearance-none
-              "
+                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all
+"
                 >
                   <option value="" className="bg-secondary text-text">
                     Select status:
@@ -226,8 +225,8 @@ export default function Modal({
                 id="notes"
                 rows="4"
                 placeholder="Add any notes here"
-                className="shadow-inner p-2.5 border border-jobcard-border rounded-xl w-full text-text outline-none focus:ring-2 focus:ring-button/50 focus:border-button transition-all resize-none
-              "
+                className="resize-none shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all
+"
               ></textarea>
             </div>
 
@@ -239,15 +238,15 @@ export default function Modal({
                   setIsOpen(false);
                 }}
                 type="button"
-                className="border border-jobcard-border text-text font-semibold rounded-xl px-4 py-2 mt-5 hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
+                className="flex-1 border border-jobcard-border text-text font-semibold rounded-xl px-4 py-2 mt-5 hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="border border-jobcard-border text-text font-semibold rounded-xl px-4 py-2 mt-5 hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
+                className="flex-1 bg-text/10 border border-jobcard-border text-text font-semibold rounded-xl px-4 py-2 mt-5 hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
               >
-                Save
+                {isEditing ? "Save" : "+ Add"}
               </button>
             </div>
           </form>{" "}

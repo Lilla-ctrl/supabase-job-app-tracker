@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../helpers/supabase-client";
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function Auth() {
@@ -54,6 +54,10 @@ export default function Auth() {
     }
   }
 
+  const isPasswordValid = password.length >= 6;
+  const showPasswordHint = isSigningUp && password.length > 0;
+  const canSubmit = isSigningUp && isPasswordValid;
+
   return (
     <>
       <div className="bg-primary transition-colors duration-500 fixed inset-0 flex items-center justify-center min-h-screen ">
@@ -63,6 +67,7 @@ export default function Auth() {
               <h2>{isSigningUp ? "Create an account" : "Welcome back"}</h2>
             </div>
             <form onSubmit={handleSubmit}>
+              {/* Email */}
               <div>
                 <div className="text-sm text-text/70 mb-1">Email address</div>
                 <input
@@ -72,6 +77,8 @@ export default function Auth() {
                   className="text-sm text-text transition-all duration-300 bg-primary border border-jobcard-border rounded-lg outline-none  shadow-sm p-2 mb-5 w-full focus:ring-2 focus:ring-button/50 focus:border-button"
                 />
               </div>
+
+              {/* Password */}
               <div>
                 <div className="text-sm text-text/70 mb-1">Password</div>
                 <div className="relative">
@@ -84,12 +91,25 @@ export default function Auth() {
                   <button
                     className="absolute right-2 p-1 text-xs text-text/50 hover:text-text mt-1 cursor-pointer"
                     type="button"
-                    onClick={() => setShowPassword(!showPassword)} >
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
                     {!showPassword ? <Eye /> : <EyeOff />}
                   </button>
+                  {showPasswordHint && (
+                    <p
+                      className={`text-xs transition-colors duration-300 ${
+                        isPasswordValid ? `text-green-500` : `text-text/50`
+                      }`}
+                    >
+                      {isPasswordValid
+                        ? "Valid password. ✅"
+                        : `Need ${6 - password.length} more characters.`}
+                    </p>
+                  )}
                 </div>
               </div>
 
+              {/* Name */}
               {isSigningUp && (
                 <>
                   <div className="text-sm text-text/70 mb-1">First name</div>
@@ -102,6 +122,7 @@ export default function Auth() {
                 </>
               )}
 
+              {/* Button */}
               <div>
                 <button
                   type="submit"
@@ -110,11 +131,14 @@ export default function Auth() {
                   {isSigningUp ? "Sign up" : "Sign in"}
                 </button>
               </div>
+
+              {/* Sign in/up */}
               <div className="flex justify-center">
                 <div className="text-sm text-text mb-">
                   {isSigningUp ? "Already a member?" : "Not a member yet?"}
                   <button
                     onClick={() => setIsSigningUp(!isSigningUp)}
+                    disabled={!canSubmit}
                     className="cursor-pointer text-button hover:text-button-hover ml-1"
                   >
                     {isSigningUp ? "Sign in!" : "Sign up!"}

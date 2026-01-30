@@ -48,7 +48,7 @@ export default function Modal({
             }
           `}
       >
-        <div className="px-12 py-8 min-h-0">
+        <div className="px-12 py-8 overflow-scroll sm:overflow-hidden min-h-0">
           <h2 className="text-2xl font-semibold tracking-tight mb-6">
             {isEditing ? "Edit application" : "New application"}
           </h2>

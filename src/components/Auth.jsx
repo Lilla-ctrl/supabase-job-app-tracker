@@ -140,6 +140,7 @@ export default function Auth() {
                 <div className="text-sm text-text mb-">
                   {isSigningUp ? "Already a member?" : "Not a member yet?"}
                   <button
+                    type="button"
                     onClick={() => setIsSigningUp(!isSigningUp)}
                     className="cursor-pointer font-semibold text-button hover:text-button-hover ml-1"
                   >

@@ -44,6 +44,7 @@ export function useJobs() {
   }
 
   async function addJob(payload) {
+    setError(null);
     const { error } = await supabase.from("job_applications").insert(payload);
 
     if (error) {
@@ -53,6 +54,7 @@ export function useJobs() {
   }
 
   async function deleteJob(id) {
+    setError(null);
     try {
       const { error } = await supabase
         .from("job_applications")
@@ -95,6 +97,7 @@ export function useJobs() {
       toast(`Bye ${name}, have a great day!`, {
         icon: "👋",
       });
+      setError(null);
       await supabase.auth.signOut();
     } catch (err) {
       console.error("Error logging out:", err.message);
@@ -162,6 +165,6 @@ export function useJobs() {
     loading,
     error,
     setError,
-    getFriendlyMessage
+    getFriendlyMessage,
   };
 }

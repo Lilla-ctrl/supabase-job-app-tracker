@@ -47,9 +47,12 @@ export default function Tracker() {
 
     try {
       await addJob(payload);
+      setError(null);
       setIsModalOpen(false);
       setNewJob(empty_job);
-    } catch {}
+    } catch (err) {
+      setError(getFriendlyMessage(err));
+    }
   }
 
   function handleEditClick(id) {
@@ -62,6 +65,7 @@ export default function Tracker() {
   async function handleUpdateJob(job) {
     try {
       await updateJob(job);
+      setError(null);
       setIsModalOpen(false);
       setNewJob(empty_job);
       setIsEditing(false);
@@ -76,6 +80,7 @@ export default function Tracker() {
     setIsDeleting(true);
     try {
       await deleteJob(itemToDelete.id);
+      setError(null);
       toast.success(`${itemToDelete.company} succesfully deleted.`);
     } catch (err) {
       console.error("Operation failed:", err);
@@ -125,9 +130,9 @@ export default function Tracker() {
         sortOrder={sortingOption}
         setSortOrder={setSortingOption}
       />
-      
+
       <ErrorMessage message={error} onClear={() => setError(null)} />
-    
+
       {loading ? (
         <div className="flex justify-center mt-10">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-text" />

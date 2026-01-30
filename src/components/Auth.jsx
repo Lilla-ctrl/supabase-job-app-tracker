@@ -7,7 +7,7 @@ export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
-  const [isSigningUp, setIsSigningUp] = useState(true);
+  const [isSigningUp, setIsSigningUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(event) {
@@ -128,7 +128,7 @@ export default function Auth() {
               <div>
                 <button
                   type="submit"
-                  disabled={!canSubmit}
+                  disabled={isSigningUp && !canSubmit}
                   className="bg-button text-button-text text-sm font-semibold py-2.5 px-4 mb-1 rounded-xl w-full hover:bg-button-hover hover:shadow-lg active:scale-95 transition-all duration-300 cursor-pointer shadow-md disabled:bg-slate-300 disabled:text-slate-500 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:bg-slate-300"
                 >
                   {isSigningUp ? "Sign up" : "Sign in"}

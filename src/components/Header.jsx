@@ -11,7 +11,7 @@ export default function Header({
   setSortOrder,
 }) {
   const { user, logout } = useJobs();
-  const firstName = user?.user_metadata?.first_name || "there";
+  const firstName = user?.user_metadata?.first_name;
 
   return (
     <header className="w-full max-w-7xl mx-auto px-6 py-8">

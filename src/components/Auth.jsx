@@ -86,7 +86,7 @@ export default function Auth() {
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="text-sm text-text transition-all duration-300 bg-primary border border-jobcard-border rounded-lg outline-none  shadow-sm px-2 py-2 pr-12 mb-5 w-full focus:ring-2 focus:ring-button/50 focus:border-button"
+                    className="text-sm text-text transition-all duration-300 bg-primary border border-jobcard-border rounded-lg outline-none  shadow-sm px-2 py-2 pr-12 w-full focus:ring-2 focus:ring-button/50 focus:border-button"
                   />
                   <button
                     className="absolute right-2 p-1 text-xs text-text/50 hover:text-text mt-1 cursor-pointer"
@@ -95,17 +95,19 @@ export default function Auth() {
                   >
                     {!showPassword ? <Eye /> : <EyeOff />}
                   </button>
-                  {showPasswordHint && (
-                    <p
-                      className={`text-xs transition-colors duration-300 ${
-                        isPasswordValid ? `text-green-500` : `text-text/50`
-                      }`}
-                    >
-                      {isPasswordValid
-                        ? "Valid password. ✅"
-                        : `Need ${6 - password.length} more characters.`}
-                    </p>
-                  )}
+                  <div className="min-h-5 mt-0.5">
+                    {showPasswordHint && (
+                      <p
+                        className={`text-xs transition-colors duration-300 ${
+                          isPasswordValid ? `text-green-500` : `text-text/50`
+                        }`}
+                      >
+                        {isPasswordValid
+                          ? "Valid password. ✅"
+                          : `Need ${6 - password.length} more characters.`}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -126,7 +128,8 @@ export default function Auth() {
               <div>
                 <button
                   type="submit"
-                  className="bg-button text-button-text text-sm font-semibold py-2.5 px-4 mb-1 rounded-xl w-full hover:bg-button-hover hover:shadow-lg active:scale-95 transition-all duration-300 cursor-pointer shadow-md"
+                  disabled={!canSubmit}
+                  className="bg-button text-button-text text-sm font-semibold py-2.5 px-4 mb-1 rounded-xl w-full hover:bg-button-hover hover:shadow-lg active:scale-95 transition-all duration-300 cursor-pointer shadow-md disabled:bg-slate-300 disabled:text-slate-500 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:bg-slate-300"
                 >
                   {isSigningUp ? "Sign up" : "Sign in"}
                 </button>
@@ -138,8 +141,7 @@ export default function Auth() {
                   {isSigningUp ? "Already a member?" : "Not a member yet?"}
                   <button
                     onClick={() => setIsSigningUp(!isSigningUp)}
-                    disabled={!canSubmit}
-                    className="cursor-pointer text-button hover:text-button-hover ml-1"
+                    className="cursor-pointer font-semibold text-button hover:text-button-hover ml-1"
                   >
                     {isSigningUp ? "Sign in!" : "Sign up!"}
                   </button>

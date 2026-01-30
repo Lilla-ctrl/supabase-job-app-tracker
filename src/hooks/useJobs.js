@@ -149,5 +149,6 @@ export function useJobs() {
     logout,
     loading,
     error,
+    setError
   };
 }

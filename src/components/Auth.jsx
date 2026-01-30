@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useJobs } from "../hooks/useJobs";
 import { supabase } from "../helpers/supabase-client";
 import { Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
@@ -9,6 +10,12 @@ export default function Auth() {
   const [firstName, setFirstName] = useState("");
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const { error, setError } = useJobs();
+
+  useEffect(() => {
+    setError(null);
+  }, [isSigningUp, setError]);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -25,8 +32,8 @@ export default function Auth() {
       });
 
       if (signUpError) {
+        setError(signUpError.message);
         console.error(signUpError.message);
-        toast.error("An error happened during sing up. Please try again.");
         return;
       }
 
@@ -47,7 +54,7 @@ export default function Auth() {
       });
       if (signInError) {
         console.error(signInError.message);
-        toast.error(signInError.message);
+        setError(signInError.message);
         return;
       }
       toast.success("Welcome back!");
@@ -122,6 +129,15 @@ export default function Auth() {
                     className="text-sm text-text transition-all duration-300 bg-primary border border-jobcard-border rounded-lg outline-none  shadow-sm p-2 mb-5 w-full focus:ring-2 focus:ring-button/50 focus:border-button"
                   />
                 </>
+              )}
+
+              {/* Error */}
+              {error && (
+                <div className="mb-4 p-3 bg-red-500/10 border-red-500/50 rounded-xl">
+                  <p className="text-xs text-red-500 font-medium text-center">
+                    {error}
+                  </p>
+                </div>
               )}
 
               {/* Button */}

@@ -138,9 +138,48 @@ export default function Tracker() {
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-text" />
         </div>
       ) : jobs.length === 0 ? (
-        <p className="text-center text-2xl text-text mt-6">
-          No applications yet.
-        </p>
+        <div className="flex flex-col items-center justify-center mt-20 p-8 border-2 border-dashed border-text/10 rounded-3xl mx-auto max-w-sm">
+          <div className="bg-text/5 p-4 rounded-full mb-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8 text-text/40"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
+            </svg>
+          </div>
+          <p className="text-xl text-text font-semibold">
+            Start your tracker
+          </p>
+          <p className="text-sm text-text/60 text-center mb-6">
+            You haven't added any applications yet Let's change that!
+          </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="px-6 py-2 bg-text/5 text-text rounded-xl font-semibold hover:cursor-pointer hover:scale-105 transition-transform"
+          >
+            Add your first job
+          </button>
+        </div>
+      ) : filteredJobs.length === 0 ? (
+        <div className="flex flex-col items-center justify-center mt-20 space-y-4">
+          <p className="text-lg text-text/70">
+            No jobs match this filter.
+          </p>
+          <button
+            onClick={() => setStatusForFilter(null)}
+            className="px-5 py-2 bg-text/5 border border-text/10 text-text rounded-lg hover:bg-text/10 transition-colors text-sm font-medium hover:cursor-pointer"
+          >
+            Clear filters
+          </button>
+        </div>
       ) : (
         <div className="flex flex-wrap justify-center gap-6">
           {sortedJobs.map((job) => (

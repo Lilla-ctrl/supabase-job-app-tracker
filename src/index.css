@@ -32,6 +32,10 @@
 
 @layer base {
   body {
+    background-color: var(--color-primary);
+  }
+
+  body.loaded {
     @apply bg-primary transition-colors duration-500;
   }
 }

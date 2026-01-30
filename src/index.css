@@ -4,13 +4,13 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-link: "JetBrains Mono", monospace;
   --color-primary: #f8fafc; /* ghost white for background color */
-  --color-secondary: #ffffff; /* white background color for cards */
+  --color-secondary: #f1f5f9; /* white background color for cards */
   --color-button: #314357; /* dark navy for buttons */
   --color-button-hover: #435b75; /* slightly ligther navy for hover */
   --color-button-text: #ffffff; /* white for text color on buttons */
   --color-text: #1e293b; /* dark color for text */
   --color-jobcard-button-hover: #ececec;
-  --color-jobcard-border: #e2e8f0;
+  --color-jobcard-border: #cbd5e1;
   --color-modal-button-hover: #ececec;
   --color-modal-ring: #ffca28;
 }

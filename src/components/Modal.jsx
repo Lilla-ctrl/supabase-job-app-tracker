@@ -113,7 +113,7 @@ export default function Modal({
               <div>
                 <label
                   htmlFor="company"
-                  className="block text-sm font-semibold uppercase tracking-widest text-text/70 mb-1 ml-1"
+                  className="block text-xs sm:text-sm font-semibold uppercase tracking-widest text-text/70 mb-1 ml-1"
                 >
                   Company*
                 </label>
@@ -136,7 +136,7 @@ export default function Modal({
               <div className="space-y-4">
                 <label
                   htmlFor="position"
-                  className="block text-sm font-semibold uppercase tracking-widest text-text/70 mb-1 ml-1"
+                  className="block text-xs sm:text-sm font-semibold uppercase tracking-widest text-text/70 mb-1 ml-1"
                 >
                   Position*
                 </label>
@@ -162,7 +162,7 @@ export default function Modal({
                 <div>
                   <label
                     htmlFor="contact"
-                    className="block text-sm font-semibold uppercase tracking-widest text-text/60 mb-1 ml-1 "
+                    className="block text-xs sm:text-sm font-semibold uppercase tracking-widest text-text/60 mb-1 ml-1 "
                   >
                     Contact info
                   </label>
@@ -183,7 +183,7 @@ export default function Modal({
                 <div>
                   <label
                     htmlFor="date"
-                    className="block mb-1 text-sm font-semibold uppercase tracking-widest text-text/60 ml-1 "
+                    className="block mb-1 text-xs sm:text-sm font-semibold uppercase tracking-widest text-text/60 ml-1 "
                   >
                     Date applied
                   </label>
@@ -219,7 +219,7 @@ export default function Modal({
               <div>
                 <label
                   htmlFor="status"
-                  className="block text-sm font-semibold uppercase tracking-widest text-text/60 mb-1 ml-1"
+                  className="block text-xs sm:text-sm font-semibold uppercase tracking-widest text-text/60 mb-1 ml-1"
                 >
                   Application Status
                 </label>
@@ -266,7 +266,7 @@ export default function Modal({
               <div>
                 <label
                   htmlFor="notes"
-                  className="block mb-1 font-semibold uppercase tracking-widest text-text/60 ml-1"
+                  className="block mb-1 text-xs sm:text-sm font-semibold uppercase tracking-widest text-text/60 ml-1"
                 >
                   Notes
                 </label>

@@ -277,7 +277,7 @@ export default function Modal({
                     setFormData((prev) => ({ ...prev, notes: e.target.value }))
                   }
                   id="notes"
-                  rows="4"
+                  rows="3"
                   placeholder="Add any notes here"
                   className="placeholder:text-sm placeholder:text-text/30 resize-none mb-0 shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
                 ></textarea>

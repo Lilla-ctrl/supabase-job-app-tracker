@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Modal({
   isOpen,
@@ -11,6 +11,43 @@ export default function Modal({
   emptyJob,
   theme,
 }) {
+  const [validationError, setValidationError] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    /* Company and Position required */
+    if (!selectedJob.company.trim() || !selectedJob.position.trim()) {
+      setValidationError("Company and Position are required fields.");
+      return;
+    }
+
+    /* Notes too long */
+    if (selectedJob.notes && selectedJob.notes.length > 500) {
+      setValidationError("Notes are too long (maximum 500 characters).");
+      return;
+    }
+
+    /* Future date */
+    const selectedDate = new Date(selectedJob.applied_at);
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    if (selectedJob.applied_at && selectedDate > today) {
+      setValidationError("The application date cannot be in the future.");
+      return;
+    }
+
+    setValidationError("");
+
+    if (isEditing) {
+      onSave(selectedJob);
+    } else {
+      onSubmit(selectedJob);
+    }
+  }
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -52,40 +89,44 @@ export default function Modal({
           <h2 className="text-2xl font-semibold tracking-tight mb-6">
             {isEditing ? "Edit application" : "New application"}
           </h2>
-          <form
-            className="space-y-3"
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (isEditing) {
-                onSave(selectedJob);
-              } else {
-                onSubmit(selectedJob);
-              }
-            }}
-          >
-            {/* Company and position */}
+          <form className="space-y-3" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-4">
+              {/* Error message */}
+              <div className="relative">
+                {validationError && (
+                  <div className="absolute top-0 left-0 w-full z-10 -translate-y-full mb-2 p-3 bg-red-500/80 backdrop-blur-md border-red-500 rounded-lg shadow-xl">
+                    <div className="flex items-center gap-3">
+                      <span className="text-white font-bold text-lg">!</span>
+                      <p className="text-white text-xs font-semibold leading-tight">
+                        {validationError}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Company and position */}
               <div>
                 <label
                   htmlFor="company"
                   className="block text-sm font-semibold uppercase tracking-widest text-text/70 mb-1 ml-1"
                 >
-                  Company
+                  Company*
                 </label>
                 <input
                   value={selectedJob?.company || ""}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setFormData((prev) => ({
                       ...prev,
                       company: e.target.value,
-                    }))
-                  }
+                    }));
+                    if (validationError) setValidationError("");
+                  }}
                   type="text"
                   name="company"
                   id="company"
-                  required
-                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all
-"
+                  placeholder="Required field"
+                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
                 />
               </div>
               <div className="space-y-4">
@@ -93,22 +134,22 @@ export default function Modal({
                   htmlFor="position"
                   className="block text-sm font-semibold uppercase tracking-widest text-text/70 mb-1 ml-1"
                 >
-                  Position
+                  Position*
                 </label>
                 <input
                   value={selectedJob?.position || ""}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setFormData((prev) => ({
                       ...prev,
                       position: e.target.value,
-                    }))
-                  }
+                    }));
+                    if (validationError) setValidationError("");
+                  }}
                   type="text"
                   name="position"
                   id="position"
-                  required
-                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all
-"
+                  placeholder="Required field"
+                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
                 />
               </div>
 
@@ -132,8 +173,7 @@ export default function Modal({
                     type="text"
                     name="contact"
                     id="contact"
-                    className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all
-"
+                    className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
                   />
                 </div>
                 <label
@@ -148,14 +188,24 @@ export default function Modal({
                   name="date"
                   style={{ colorScheme: theme === "dark" ? "dark" : "light" }}
                   value={selectedJob?.applied_at || ""}
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    const newDateValue = e.target.value;
                     setFormData((prev) => ({
                       ...prev,
-                      applied_at: e.target.value,
-                    }))
-                  }
-                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all
-"
+                      applied_at: newDateValue,
+                    }));
+
+                    if (validationError) {
+                      const todayString = new Date()
+                        .toISOString()
+                        .split("T")[0];
+
+                      if (newDateValue <= todayString) {
+                        setValidationError("");
+                      }
+                    }
+                  }}
+                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
                 />
               </div>
 
@@ -174,8 +224,7 @@ export default function Modal({
                   }
                   name="status"
                   id="status-select"
-                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all
-"
+                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
                 >
                   <option value="" className="bg-secondary text-text">
                     Select status:
@@ -211,7 +260,7 @@ export default function Modal({
               <div>
                 <label
                   htmlFor="notes"
-                  className="block text-sm font-semibold uppercase tracking-widest text-text/60 mb-1 ml-1"
+                  className="block text-sm font-semibold uppercase tracking-widest text-text/60 ml-1"
                 >
                   Notes
                 </label>
@@ -225,9 +274,19 @@ export default function Modal({
                 id="notes"
                 rows="4"
                 placeholder="Add any notes here"
-                className="resize-none shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all
-"
+                className="resize-none shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
               ></textarea>
+              <div className="flex justify-end">
+                <span
+                  className={`text-[10px] ${
+                    selectedJob.notes?.length > 500
+                      ? "text-red-500 font-bold"
+                      : "text-text/40"
+                  }`}
+                >
+                  {selectedJob.notes?.length || 0} / 500
+                </span>
+              </div>
             </div>
 
             {/* Buttons */}
@@ -238,13 +297,13 @@ export default function Modal({
                   setIsOpen(false);
                 }}
                 type="button"
-                className="flex-1 border border-jobcard-border text-text font-semibold rounded-xl px-4 py-2 mt-5 hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
+                className="flex-1 border border-jobcard-border text-text font-semibold rounded-xl px-4 py-2  hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="flex-1 bg-text/20 border border-jobcard-border text-text font-semibold rounded-xl px-4 py-2 mt-5 hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
+                className="flex-1 bg-text/20 border border-jobcard-border text-text font-semibold rounded-xl px-4 py-2 hover:bg-modal-button-hover active:scale-95 cursor-pointer transition-all shadow-md"
               >
                 {isEditing ? "Save" : "+ Add"}
               </button>

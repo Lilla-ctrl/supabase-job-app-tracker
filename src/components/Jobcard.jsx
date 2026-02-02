@@ -1,5 +1,4 @@
 import { Calendar, User, Briefcase, Trash2 } from "lucide-react";
-
 import { formatDateApplied } from "../helpers/jobUtils";
 
 export default function Jobcard({ job, onDeleteRequest, handleEditClick }) {

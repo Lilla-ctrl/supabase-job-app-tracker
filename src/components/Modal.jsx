@@ -130,7 +130,7 @@ export default function Modal({
                   name="company"
                   id="company"
                   placeholder="Required field"
-                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
+                  className="placeholder:text-sm placeholder:text-text/30 shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
                 />
               </div>
               <div className="space-y-4">
@@ -153,7 +153,7 @@ export default function Modal({
                   name="position"
                   id="position"
                   placeholder="Required field"
-                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
+                  className="placeholder:text-sm placeholder:text-text/30 shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
                 />
               </div>
 
@@ -279,7 +279,7 @@ export default function Modal({
                   id="notes"
                   rows="4"
                   placeholder="Add any notes here"
-                  className="resize-none mb-0 shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
+                  className="placeholder:text-sm placeholder:text-text/30 resize-none mb-0 shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
                 ></textarea>
                 <div className="flex justify-end pr-1.5 -mt-1.5">
                   <span

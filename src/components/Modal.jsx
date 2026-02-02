@@ -81,7 +81,7 @@ export default function Modal({
         onClick={() => setIsOpen(false)}
       />
       <div
-        className={`relative mx-4 px-6 py-6 sm:mx-0 bg-secondary text-text sm:max-w-lg rounded-2xl shadow-2xl max-w-lg md:max-w-xl w-full border border-jobcard-border transition-all duration-500 ease-out-back rounded-t-4xl sm:rounded-2xl max-h-[90vh] flex flex-col
+        className={`relative mx-4 px-6 py-3 sm:px-12 sm:py-8 sm:mx-0 bg-secondary text-text sm:max-w-lg rounded-2xl shadow-2xl max-w-lg md:max-w-xl w-full border border-jobcard-border transition-all duration-500 ease-out-back rounded-t-4xl sm:rounded-2xl max-h-[90vh] flex flex-col
             ${
               isOpen
                 ? "translate-y-0 scale-100 opacity-100 blur-none"
@@ -90,11 +90,11 @@ export default function Modal({
           `}
       >
         <div className="overflow-scroll sm:overflow-hidden min-h-0">
-          <h2 className="text-2xl font-semibold tracking-tight mb-6">
+          <h2 className="text-md sm:text-2xl text-center uppercase font-semibold tracking-tight sm:mb-6">
             {isEditing ? "Edit application" : "New application"}
           </h2>
-          <form className="space-y-3" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 gap-4">
+          <form className="space-y-2 sm:space-y-4" onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 gap-3 sm:gap-4">
               {/* Error message */}
               <div className="relative">
                 {validationError && (
@@ -130,7 +130,7 @@ export default function Modal({
                   name="company"
                   id="company"
                   placeholder="Required field"
-                  className="placeholder:text-sm placeholder:text-text/30 shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
+                  className="placeholder:text-sm placeholder:text-text/30 shadow-inner bg-primary/50 px-4 py-2 sm:py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
                 />
               </div>
               <div className="space-y-4">
@@ -153,7 +153,7 @@ export default function Modal({
                   name="position"
                   id="position"
                   placeholder="Required field"
-                  className="placeholder:text-sm placeholder:text-text/30 shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
+                  className="placeholder:text-sm placeholder:text-text/30 shadow-inner bg-primary/50 px-4 py-2 sm:py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
                 />
               </div>
 
@@ -177,40 +177,42 @@ export default function Modal({
                     type="text"
                     name="contact"
                     id="contact"
-                    className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
+                    className="shadow-inner bg-primary/50 px-4 py-2 sm:py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
                   />
                 </div>
-                <label
-                  htmlFor="date"
-                  className="block text-sm font-semibold uppercase tracking-widest text-text/60 mb-1 ml-1 "
-                >
-                  Date applied
-                </label>
-                <input
-                  type="date"
-                  id="date"
-                  name="date"
-                  style={{ colorScheme: theme === "dark" ? "dark" : "light" }}
-                  value={selectedJob?.applied_at || ""}
-                  onChange={(e) => {
-                    const newDateValue = e.target.value;
-                    setFormData((prev) => ({
-                      ...prev,
-                      applied_at: newDateValue,
-                    }));
+                <div>
+                  <label
+                    htmlFor="date"
+                    className="block mb-1 text-sm font-semibold uppercase tracking-widest text-text/60 ml-1 "
+                  >
+                    Date applied
+                  </label>
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    style={{ colorScheme: theme === "dark" ? "dark" : "light" }}
+                    value={selectedJob?.applied_at || ""}
+                    onChange={(e) => {
+                      const newDateValue = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        applied_at: newDateValue,
+                      }));
 
-                    if (validationError) {
-                      const todayString = new Date()
-                        .toISOString()
-                        .split("T")[0];
+                      if (validationError) {
+                        const todayString = new Date()
+                          .toISOString()
+                          .split("T")[0];
 
-                      if (newDateValue <= todayString) {
-                        setValidationError("");
+                        if (newDateValue <= todayString) {
+                          setValidationError("");
+                        }
                       }
-                    }
-                  }}
-                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
-                />
+                    }}
+                    className="shadow-inner bg-primary/50 px-4 py-2 sm:py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
+                  />
+                </div>
               </div>
 
               {/* Status dropdown */}
@@ -228,7 +230,7 @@ export default function Modal({
                   }
                   name="status"
                   id="status-select"
-                  className="shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
+                  className="shadow-inner bg-primary/50 px-4 py-2 sm:py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
                 >
                   <option value="" className="bg-secondary text-text">
                     Select status:
@@ -264,33 +266,36 @@ export default function Modal({
               <div>
                 <label
                   htmlFor="notes"
-                  className="block text-sm font-semibold uppercase tracking-widest text-text/60 ml-1"
+                  className="block mb-1 font-semibold uppercase tracking-widest text-text/60 ml-1"
                 >
                   Notes
                 </label>
-              </div>
-              <div className="space-y-1">
-                <textarea
-                  name="notes"
-                  value={selectedJob?.notes || ""}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, notes: e.target.value }))
-                  }
-                  id="notes"
-                  rows="3"
-                  placeholder="Add any notes here"
-                  className="placeholder:text-sm placeholder:text-text/30 resize-none mb-0 shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
-                ></textarea>
-                <div className="flex justify-end pr-1.5 -mt-1.5">
-                  <span
-                    className={`text-[10px] ${
-                      selectedJob.notes?.length > 500
-                        ? "text-red-500 font-bold"
-                        : "text-text/40"
-                    }`}
-                  >
-                    {selectedJob.notes?.length || 0} / 500
-                  </span>
+                <div className="space-y-1">
+                  <textarea
+                    name="notes"
+                    value={selectedJob?.notes || ""}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        notes: e.target.value,
+                      }))
+                    }
+                    id="notes"
+                    rows="3"
+                    placeholder="Add any notes here"
+                    className="placeholder:text-sm placeholder:text-text/30 resize-none mb-0 shadow-inner bg-primary/50 px-4 py-2 sm:py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
+                  ></textarea>
+                  <div className="flex justify-end pr-1.5 -mt-1.5">
+                    <span
+                      className={`text-[10px] ${
+                        selectedJob.notes?.length > 500
+                          ? "text-red-500 font-bold"
+                          : "text-text/40"
+                      }`}
+                    >
+                      {selectedJob.notes?.length || 0} / 500
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

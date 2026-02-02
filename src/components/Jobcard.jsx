@@ -1,9 +1,6 @@
-import {
-  Calendar,
-  User,
-  Briefcase,
-  Trash2,
-} from "lucide-react";
+import { Calendar, User, Briefcase, Trash2 } from "lucide-react";
+
+import { formatDateApplied } from "../helpers/jobUtils";
 
 export default function Jobcard({ job, onDeleteRequest, handleEditClick }) {
   const statusColors = {
@@ -42,13 +39,24 @@ export default function Jobcard({ job, onDeleteRequest, handleEditClick }) {
 
       {/* Details */}
       <div className="grid grid-cols-2 gap-2 text-xs text-text/770 border-y border-jobcard-border py-3">
-        <div className="flex items-center gap-2">
-          <Calendar className="w-3.5 h-3.5 text-text/40" />
-          <span className="text-text">{job.applied_at}</span>
+        
+        {/* Date */}
+        <div className="flex items-center gap-2 min-w-0" title={job.applied_at}>
+          <Calendar className="w-3.5 h-3.5 text-text/40 shrink-0" />
+          <div className="flex flex-col truncate">
+            <span className="text-text font-medium truncate">
+              {formatDateApplied(job.applied_at)}
+            </span>
+            <span className="text-text/50 text-[10px] leading-tight">
+              {job.applied_at}
+            </span>
+          </div>
         </div>
+
+        {/* Contact */}
         <div className="flex items-center gap-2 min-w-0">
           <User className="w-3.5 h-3.5 text-text/40 shrink-0" />
-          <span className="text-text truncate" title={job.contact}>
+          <span className="text-text font-medium truncate" title={job.contact}>
             {job.contact}
           </span>
         </div>

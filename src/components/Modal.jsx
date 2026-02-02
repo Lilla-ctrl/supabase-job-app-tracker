@@ -77,7 +77,7 @@ export default function Modal({
         onClick={() => setIsOpen(false)}
       />
       <div
-        className={`relative bg-secondary text-text sm:max-w-lg rounded-2xl shadow-2xl max-w-lg md:max-w-xl w-full border border-jobcard-border transition-all duration-500 ease-out-back rounded-t-4xl sm:rounded-2xl max-h-[90vh] flex flex-col
+        className={`relative mx-4 px-6 py-6 sm:mx-0 bg-secondary text-text sm:max-w-lg rounded-2xl shadow-2xl max-w-lg md:max-w-xl w-full border border-jobcard-border transition-all duration-500 ease-out-back rounded-t-4xl sm:rounded-2xl max-h-[90vh] flex flex-col
             ${
               isOpen
                 ? "translate-y-0 scale-100 opacity-100 blur-none"
@@ -85,7 +85,7 @@ export default function Modal({
             }
           `}
       >
-        <div className="px-12 py-8 overflow-scroll sm:overflow-hidden min-h-0">
+        <div className="overflow-scroll sm:overflow-hidden min-h-0">
           <h2 className="text-2xl font-semibold tracking-tight mb-6">
             {isEditing ? "Edit application" : "New application"}
           </h2>
@@ -265,27 +265,29 @@ export default function Modal({
                   Notes
                 </label>
               </div>
-              <textarea
-                name="notes"
-                value={selectedJob?.notes || ""}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, notes: e.target.value }))
-                }
-                id="notes"
-                rows="4"
-                placeholder="Add any notes here"
-                className="resize-none shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
-              ></textarea>
-              <div className="flex justify-end">
-                <span
-                  className={`text-[10px] ${
-                    selectedJob.notes?.length > 500
-                      ? "text-red-500 font-bold"
-                      : "text-text/40"
-                  }`}
-                >
-                  {selectedJob.notes?.length || 0} / 500
-                </span>
+              <div className="space-y-1">
+                <textarea
+                  name="notes"
+                  value={selectedJob?.notes || ""}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, notes: e.target.value }))
+                  }
+                  id="notes"
+                  rows="4"
+                  placeholder="Add any notes here"
+                  className="resize-none mb-0 shadow-inner bg-primary/50 px-4 py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
+                ></textarea>
+                <div className="flex justify-end pr-1.5 -mt-1.5">
+                  <span
+                    className={`text-[10px] ${
+                      selectedJob.notes?.length > 500
+                        ? "text-red-500 font-bold"
+                        : "text-text/40"
+                    }`}
+                  >
+                    {selectedJob.notes?.length || 0} / 500
+                  </span>
+                </div>
               </div>
             </div>
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Jobcard from "./Jobcard";
-import Modal from "./Modal";
+import JobModal from "./JobModal";
 import Header from "./Header";
 import { filterJobsByStatus, sortJobs } from "../helpers/jobUtils";
 import { useJobs } from "../hooks/useJobs";
@@ -99,7 +99,7 @@ export default function Tracker() {
   return (
     <div className="bg-primary transition-colors duration-500 flex-1">
       {isModalOpen && (
-        <Modal
+        <JobModal
           onSubmit={handleAddJob}
           isOpen={isModalOpen}
           setIsOpen={setIsModalOpen}

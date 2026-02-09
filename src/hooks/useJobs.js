@@ -113,46 +113,28 @@ export function useJobs() {
   useEffect(() => {
     if (!user) return;
 
-    const insertChannel = supabase.channel("jobs-insert-channel");
-    insertChannel
+    const jobsChannel = supabase
+      .channel("jobs-main-channel")
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "job_applications" },
-        (payload) => {
-          setJobs((prev) => [...prev, payload.new]);
-        }
+        { event: "INSERT", schema: "public", table: "job_applications"},
+        (payload) => setJobs((prev) => [...prev, payload.new])
+      )
+      .on(
+        "postgres_changes",
+        {event: "UPDATE", schema: "public", table: "job_applications"},
+        (payload) => setJobs((prev) => prev.map((job) => job.id === payload.new.id ? payload.new : job))
+      )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "job_applications"},
+        (payload) => setJobs((prev) => prev.filter((job) => job.id !== payload.old.id))
       )
       .subscribe();
 
-    const updateChannel = supabase.channel("jobs-update-channel");
-    updateChannel
-      .on(
-        "postgres_changes",
-        { event: "UPDATE", schema: "public", table: "job_applications" },
-        (payload) => {
-          setJobs((prev) =>
-            prev.map((job) => (job.id === payload.new.id ? payload.new : job))
-          );
-        }
-      )
-      .subscribe();
-
-    const deleteChannel = supabase.channel("jobs-delete-channel");
-    deleteChannel
-      .on(
-        "postgres_changes",
-        { event: "DELETE", schema: "public", table: "job_applications" },
-        (payload) => {
-          setJobs((prev) => prev.filter((job) => job.id !== payload.old.id));
-        }
-      )
-      .subscribe();
-
-    return () => {
-      insertChannel.unsubscribe();
-      updateChannel.unsubscribe();
-      deleteChannel.unsubscribe();
-    };
+      return () => {
+        supabase.removeChannel(jobsChannel);
+      }
   }, [user]);
 
   return {

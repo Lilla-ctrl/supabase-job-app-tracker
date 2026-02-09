@@ -6,6 +6,7 @@ import { filterJobsByStatus, sortJobs } from "../helpers/jobUtils";
 import { useJobs } from "../hooks/useJobs";
 import DeleteModal from "./DeleteModal";
 import toast from "react-hot-toast";
+import { motion, AnimatePresence } from "framer-motion";
 import ErrorMessage from "./ErrorMessage";
 
 export default function Tracker() {
@@ -155,9 +156,7 @@ export default function Tracker() {
               />
             </svg>
           </div>
-          <p className="text-xl text-text font-semibold">
-            Start your tracker
-          </p>
+          <p className="text-xl text-text font-semibold">Start your tracker</p>
           <p className="text-sm text-text/60 text-center mb-6">
             You haven't added any applications yet Let's change that!
           </p>
@@ -170,9 +169,7 @@ export default function Tracker() {
         </div>
       ) : filteredJobs.length === 0 ? (
         <div className="flex flex-col items-center justify-center mt-20 space-y-4">
-          <p className="text-lg text-text/70">
-            No jobs match this filter.
-          </p>
+          <p className="text-lg text-text/70">No jobs match this filter.</p>
           <button
             onClick={() => setStatusForFilter(null)}
             className="px-5 py-2 bg-text/5 border border-text/10 text-text rounded-lg hover:bg-text/10 transition-colors text-sm font-medium hover:cursor-pointer"
@@ -182,14 +179,28 @@ export default function Tracker() {
         </div>
       ) : (
         <div className="flex flex-wrap justify-center gap-6">
-          {sortedJobs.map((job) => (
-            <Jobcard
-              key={job.id}
-              job={job}
-              onDeleteRequest={handleSelectForDeletion}
-              handleEditClick={handleEditClick}
-            />
-          ))}
+          <AnimatePresence mode="popLayout">
+            {sortedJobs.map((job) => (
+              <motion.div
+                key={job.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.5,
+                  transition: { duration: 0.15 },
+                }}
+              >
+                <Jobcard
+                  key={job.id}
+                  job={job}
+                  onDeleteRequest={handleSelectForDeletion}
+                  handleEditClick={handleEditClick}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       )}
     </div>

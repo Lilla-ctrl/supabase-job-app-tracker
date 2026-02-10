@@ -130,6 +130,7 @@ export default function Tracker() {
         setFilterStatus={setStatusForFilter}
         sortOrder={sortingOption}
         setSortOrder={setSortingOption}
+        jobs={jobs}
       />
 
       <ErrorMessage message={error} onClear={() => setError(null)} />
@@ -158,7 +159,9 @@ export default function Tracker() {
           </div>
           <p className="text-xl text-text font-semibold">Start your tracker</p>
           <p className="text-sm text-text/60 text-center mb-6">
-            You haven't added any applications yet Let's change that!
+            You haven't added any applications yet.
+            <br />
+            Let's change that!
           </p>
           <button
             onClick={() => setIsModalOpen(true)}

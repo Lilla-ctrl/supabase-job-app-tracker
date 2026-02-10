@@ -181,7 +181,8 @@ export default function Tracker() {
           </button>
         </div>
       ) : (
-        <div className="flex flex-wrap justify-center gap-6">
+        <div className="w-full max-w-7xl mx-auto px-4">
+          <div className="flex flex-wrap justify-center gap-6">
           <AnimatePresence mode="popLayout">
             {sortedJobs.map((job) => (
               <motion.div
@@ -205,6 +206,8 @@ export default function Tracker() {
             ))}
           </AnimatePresence>
         </div>
+        </div>
+        
       )}
     </div>
   );

@@ -8,10 +8,10 @@ export default function FormInput({
   required = false,
 }) {
   return (
-    <div>
+    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
       <label
         htmlFor={name}
-        className="block text-xs sm:text-sm font-semibold uppercase tracking-widest text-text/70 mb-1 ml-1"
+        className="block sm:w-24 shrink-0 text-xs lg:text-sm font-semibold uppercase tracking-widest text-text/70 ml-1"
       >
         {label}
         {required && "*"}
@@ -23,7 +23,7 @@ export default function FormInput({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="placeholder:text-sm placeholder:text-text/30 shadow-inner bg-primary/50 px-4 py-2 sm:py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
+        className="placeholder:text-sm placeholder:text-text/30 shadow-inner bg-primary/50 px-4 py-2 sm:py-3 md:py-1 lg:py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
       />
     </div>
   );

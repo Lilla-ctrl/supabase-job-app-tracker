@@ -1,6 +1,6 @@
 export default function FormActions({ onCancel, isEditing }) {
   return (
-    <div className="flex gap-3 sm:mt-6">
+    <div className="flex gap-3 sm:mt-6 md:mt-2 lg:mb-6">
       <button
         onClick={onCancel}
         type="button"

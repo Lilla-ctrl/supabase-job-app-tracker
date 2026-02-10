@@ -12,7 +12,7 @@ export default function FormTextarea({
     <div className="space-y-1">
       <label
         htmlFor={name}
-        className="block mb-1 text-xs sm:text-sm font-semibold uppercase tracking-widest text-text/60 ml-1"
+        className="block mb-1 text-xs lg:text-sm font-semibold uppercase tracking-widest text-text/60 ml-1"
       >
         {label}
       </label>
@@ -22,7 +22,7 @@ export default function FormTextarea({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        rows="3"
+        rows="2"
         className="placeholder:text-sm placeholder:text-text/30 resize-none mb-0 shadow-inner bg-primary/50 px-4 py-2 sm:py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
       ></textarea>
 

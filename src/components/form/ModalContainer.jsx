@@ -12,7 +12,10 @@ export default function ModalContainer({isOpen, onClose, children}) {
 
       {/* Animated card wrapper */}
       <div
-        className={`relative mx-4 my-auto px-6 py-3 sm:px-12 sm:py-8 sm:mx-0 bg-secondary text-text sm:max-w-lg rounded-2xl shadow-2xl max-w-lg md:max-w-xl w-full border border-jobcard-border transition-all duration-500 ease-out-back rounded-t-4xl sm:rounded-2xl max-h-[90vh] flex flex-col
+        className={`relative mx-4 my-auto px-6 py-3 sm:px-12 sm:py-8 md:py-3 sm:mx-0 
+                bg-secondary text-text sm:max-w-lg rounded-2xl shadow-2xl max-w-lg md:max-w-lg lg:max-w-xl w-full
+                  border border-jobcard-border transition-all duration-500 ease-out-back sm:rounded-2xl max-h-[85vh] h-fit
+                  flex flex-col overflow-hidden
                   ${
                     isOpen
                       ? "translate-y-0 scale-100 opacity-100 blur-none"
@@ -20,7 +23,10 @@ export default function ModalContainer({isOpen, onClose, children}) {
                   }
                 `}
       >
-        {children}
+        <div className="flex-1 overflow-y-auto no-scrollbar py-2 sm:py-0">
+          {children}
+        </div>
+        
       </div>
     </div>
   );

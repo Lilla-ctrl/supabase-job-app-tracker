@@ -155,7 +155,7 @@ export default function JobModal({
             {/* Status dropdown */}
             <div>
               <FormSelect
-                label="Application Status"
+                label="Status"
                 name="status"
                 value={selectedJob.status}
                 options={STATUS_OPTIONS}

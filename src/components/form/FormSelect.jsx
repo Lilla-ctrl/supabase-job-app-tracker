@@ -6,10 +6,10 @@ export default function FormSelect({
   options
 }) {
   return (
-    <div>
+    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
       <label
         htmlFor={name}
-        className="block text-xs sm:text-sm font-semibold uppercase tracking-widest text-text/60 mb-1 ml-1"
+        className="block sm:w-24 text-xs lg:text-sm font-semibold uppercase tracking-widest text-text/60 mb-1 ml-1"
       >
         {label}
       </label>
@@ -18,7 +18,7 @@ export default function FormSelect({
         name={name}
         value={value}
         onChange={onChange}
-        className="shadow-inner bg-primary/50 px-4 py-2 sm:py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
+        className="shadow-inner bg-primary/50 px-4 py-2 lg:py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all md:text-sm"
       >
         <option value="" className="bg-secondary text-text">
           Select {label.toLowerCase()}:

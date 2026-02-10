@@ -51,7 +51,7 @@ export default function Header({
         <>
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 lg:gap-8 py-8">
             {/* Left side - search bar */}
-            <div className="relative w-full md:w-80 group">
+            <div className="relative w-full md:w-80 focus-within:md:w-96 transition-all duration-300 group">
               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-text/50 group-focus-within:text-button transition-colors">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

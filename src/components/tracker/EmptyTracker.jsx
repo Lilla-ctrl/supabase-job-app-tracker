@@ -18,7 +18,7 @@ export default function EmptyTracker({ setIsModalOpen }) {
         </svg>
       </div>
       <p className="text-xl text-text font-semibold">Start your tracker</p>
-      <p className="text-sm text-text/60 text-center mb-6">
+      <p className="text-sm text-center text-transparent bg-clip-text bg-linear-to-r from-text to-text/60 mb-6">
         You haven't added any applications yet.
         <br />
         Let's change that!

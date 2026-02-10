@@ -13,7 +13,7 @@ export default function Jobcard({ job, onDeleteRequest, handleEditClick }) {
   };
 
   return (
-    <div className="w-80 bg-secondary p-5 rounded-2xl shadow-sm border border-jobcard-border flex flex-col gap-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <div className="w-80 bg-secondary p-5 rounded-2xl shadow-sm border border-jobcard-border/5 backdrop-blur-sm flex flex-col gap-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       {/* Header */}
       <div>
         <div className="flex justify-between items-start">

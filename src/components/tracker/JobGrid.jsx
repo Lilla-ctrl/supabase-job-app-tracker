@@ -10,12 +10,13 @@ export default function JobGrid({ jobs, onDeleteRequest, onEditClick }) {
             <motion.div
               key={job.id}
               layout
+              transition={{ delay: job.id * 0.003 }}
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{
                 opacity: 0,
                 scale: 0.5,
-                transition: { duration: 0.15 },
+                transition: { duration: 0.2 },
               }}
             >
               <Jobcard

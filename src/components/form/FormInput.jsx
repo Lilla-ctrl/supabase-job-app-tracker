@@ -7,6 +7,9 @@ export default function FormInput({
   placeholder,
   required = false,
 }) {
+
+  const isMutedDate = type === "date" && !value;
+
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
       <label
@@ -23,7 +26,10 @@ export default function FormInput({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="placeholder:text-sm placeholder:text-text/30 shadow-inner bg-primary/50 px-4 py-2 sm:py-3 md:py-1 lg:py-3 border border-text/10 text-text rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all"
+        className={`placeholder:text-sm placeholder:text-text/30 shadow-inner bg-primary/50 
+                  px-4 py-2 sm:py-3 md:py-1 lg:py-3 border border-text/10 text-text rounded-xl 
+                  w-full focus:outline-none focus:ring-2 focus:ring-text/20 outline-none transition-all
+                  ${isMutedDate ? "text-text/30" : "text-text"}`}
       />
     </div>
   );

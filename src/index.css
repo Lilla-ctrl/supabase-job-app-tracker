@@ -48,3 +48,18 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.costum-date-input::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.costum-date-input::-webkit-calendar-picker-indicator:hover {
+   opacity: 1;
+}
+
+.light .custom-date-input::-webkit-calendar-picker-indicator {
+  filter: invert(0);
+}

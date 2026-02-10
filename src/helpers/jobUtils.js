@@ -56,3 +56,25 @@ export function formatDateApplied(dateString) {
   if (diffMonths === 1) return "1 month ago";
   return `${diffMonths} months ago`;
 }
+
+export function searchJobs(searchTerm, jobs) {
+  if (!Array.isArray(jobs)) return [];
+
+  if (!searchTerm) return jobs;
+
+  const searchableFields = [
+    "company",
+    "position",
+    "contact",
+    "applied_at",
+    "status",
+    "notes",
+  ];
+
+  return jobs.filter((job) =>
+
+    searchableFields.some((field) =>
+      String(job[field] || "").toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+}

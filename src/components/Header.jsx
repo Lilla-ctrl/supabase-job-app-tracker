@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useJobs } from "../hooks/useJobs";
 
 export default function Header({
@@ -11,11 +10,11 @@ export default function Header({
   sortOrder,
   setSortOrder,
   jobs,
+  setSearchTerm,
+  searchTerm,
 }) {
   const { user, logout } = useJobs();
   const firstName = user?.user_metadata?.first_name;
-
-  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <header className="w-full max-w-7xl mx-auto px-6 py-8">

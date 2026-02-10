@@ -146,7 +146,9 @@ export default function Tracker() {
       ) : jobs.length === 0 ? (
         <EmptyTracker setIsModalOpen={setIsModalOpen} />
       ) : filteredJobs.length === 0 ? (
-        <NoMatch setStatusForFilter={setStatusForFilter} />
+        <NoMatch message="filter" onClear={() => setStatusForFilter(null)} />
+      ) : searchedJobs.length === 0 ? (
+        <NoMatch message="search" onClear={() => setSearchTerm("")} />
       ) : (
         <JobGrid
           jobs={sortedJobs}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import JobModal from "./JobModal";
 import Header from "./Header";
 import { filterJobsByStatus, sortJobs, searchJobs } from "../helpers/jobUtils";
@@ -96,9 +96,17 @@ export default function Tracker() {
   }
 
   /* Filtering, sorting, and searching */
-  const filteredJobs = filterJobsByStatus(jobs, statusForFilter);
-  const searchedJobs = searchJobs(filteredJobs, searchTerm);
-  const sortedJobs = sortJobs(searchedJobs, sortingOption);
+  const { filteredJobs, searchedJobs, sortedJobs } = useMemo(() => {
+    const filtered = filterJobsByStatus(jobs, statusForFilter);
+    const searched = searchJobs(filtered, searchTerm);
+    const sorted = sortJobs(searched, sortingOption);
+
+    return {
+      filteredJobs: filtered,
+      searchedJobs: searched,
+      sortedJobs: sorted,
+    };
+  }, [jobs, statusForFilter, searchTerm, sortingOption]);
 
   /* Render */
   return (

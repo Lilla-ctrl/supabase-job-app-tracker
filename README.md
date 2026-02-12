@@ -1,16 +1,59 @@
-# React + Vite
+🛰️ A Full-Stack Job Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+As a job seeker, I needed a way to track my applications, but a spreadsheet felt like a placeholder. I wanted a tool that was minimalist yet functional. Building this was the perfect opportunity to dive into the backend; I figured I might as well build a tool that stands the test of time while learning a vital new skill set.
 
-Currently, two official plugins are available:
+The result is a production-ready application optimized for desktop (for now) where every status update and search query is synced in real-time with the help of Supabase.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+✨ Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Full CRUD Functionality: Seamlessly add, edit, and delete job applications with real-time updates.
 
-## Expanding the ESLint configuration
+Status & Note Tracking: Manage application progress and keep essential notes organized for every role.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Minimalist UI: A clean, responsive interface designed for focus and clarity.
+
+Secure Data Isolation: Integrated Supabase Auth to ensure users interact strictly with their own data.
+
+Real-Time Sync: Persistent data storage that stays in sync across sessions.
+
+Component-Driven Design: Built with modular, reusable React components for maintainability.
+
+---
+
+🕵️ The Detective Work
+
+I treat bugs like clues. When I hit issues with logic or responsiveness, I used them to investigate the inner workings of React. This led to:
+
+Performance: A memoized data pipeline using useMemo to keep searching and filtering buttery smooth.
+
+Architecture: Refactoring a monolith into clean, reusable components. To me, a good refactor is like tidying up after a busy week.
+
+Full-Stack Logic: Navigating the data flow between a live database and the frontend to keep everything in sync.
+
+---
+
+🛠️ The Toolkit
+
+Frontend: React 18, Vite, Tailwind CSS V4, Framer Motion
+
+Backend: Supabase (Auth & Database)
+
+Logic: Custom Hooks & Performance Memoization
+
+Fuel: Sheer stubbornness and and high-focus playlist.
+
+---
+
+🎯 The "Senior-Mindset" Junior
+
+I don't just want to build features; I want to build systems. This project is a reflection of my approach to software:
+
+Willpower over ease: I chose Supabase because I wanted to move past the safety of the frontend and understand how data persists and scales.
+
+Architecture over hacks: I spent time refactoring and memoizing because I care about the developer who has to read my code six months from now—even if that developer is me.
+
+Function over flash: I built this to solve my own problem as a job seeker, ensuring the tool was actually useful rather than just a collection of flashy animations.
+
+I am looking for a team where I can bring this level of ownership and curiosity to production-grade challenges.

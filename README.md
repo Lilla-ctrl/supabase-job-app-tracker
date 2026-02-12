@@ -1,4 +1,4 @@
-CAREER HORIZON | JOB TRACKER [LIVE DEMO](https://career-horizon-job-tracker.netlify.app/)
+CAREER HORIZON | JOB TRACKER #[LIVE DEMO](https://career-horizon-job-tracker.netlify.app/)
 
 🛰️ A Full-Stack Job Tracker
 

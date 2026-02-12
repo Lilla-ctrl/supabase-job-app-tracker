@@ -22,7 +22,7 @@ export default function JobModal({
   const STATUS_OPTIONS = [
     "Applied",
     "Interviewing",
-    "Offer recieved",
+    "Offer received",
     "Rejected",
     "Unsolicited",
   ];

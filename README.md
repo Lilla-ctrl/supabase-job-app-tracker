@@ -1,8 +1,20 @@
+CAREER HORIZON | JOB TRACKER [LIVE DEMO](https://career-horizon-job-tracker.netlify.app/)
+
 🛰️ A Full-Stack Job Tracker
 
 As a job seeker, I needed a way to track my applications, but a spreadsheet felt like a placeholder. I wanted a tool that was minimalist yet functional. Building this was the perfect opportunity to dive into the backend; I figured I might as well build a tool that stands the test of time while learning a vital new skill set.
 
 The result is a production-ready application optimized for desktop (for now) where every status update and search query is synced in real-time with the help of Supabase.
+
+---
+
+🛠️ Setup Instructions
+1. Clone the repository
+2. Install dependencies: npm install
+3. Set up Environment Variables:
+  - Copy the .env.example file and rename it to .env.
+  - Add your own Supabase URL and Anon Key to the .env file.
+4. Run the app: npm run dev
 
 ---
 

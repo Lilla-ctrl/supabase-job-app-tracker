@@ -21,7 +21,7 @@ export default function Auth() {
     event.preventDefault();
 
     if (isSigningUp) {
-      const { error: signUpError } = await supabase.auth.signUp({
+      const { data, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -37,7 +37,7 @@ export default function Auth() {
         return;
       }
 
-      if (data.user && !data.session) {
+      if (data?.user && !data?.session) {
         toast.success("Check your inbox to confirm your email!", {
           duration: 6000,
           icon: "📧",

@@ -25,9 +25,9 @@ export function useJobs() {
     setUser(user);
   }
 
-  async function fetchJobs() {
+  async function fetchJobs(silent = false) {
     try {
-      setLoading(true);
+      if (!silent )setLoading(true);
       const { error, data } = await supabase
         .from("job_applications")
         .select("*")

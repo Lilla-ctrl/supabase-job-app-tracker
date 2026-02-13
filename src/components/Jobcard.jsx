@@ -13,7 +13,7 @@ export default function Jobcard({ job, onDeleteRequest, handleEditClick }) {
   };
 
   return (
-    <div className="w-80 bg-secondary p-5 rounded-2xl shadow-sm border border-jobcard-border/5 backdrop-blur-sm flex flex-col gap-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <div className="w-full max-w-sm mx-auto h-full min-h-75 bg-secondary p-5 rounded-2xl shadow-sm border border-jobcard-border/5 backdrop-blur-sm flex flex-col gap-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       {/* Header */}
       <div>
         <div className="flex justify-between items-start">
@@ -62,14 +62,19 @@ export default function Jobcard({ job, onDeleteRequest, handleEditClick }) {
       </div>
 
       {/* Notes */}
-      {job.notes && (
-        <div className="bg-text/3 p-3 rounded-lg border border-jobcard-border/30 italic text-sm text-text/80 relative overflow-hidden">
+      <div className="grow mb-2">
+        {job.notes ? (
+        <div className="h-24 overflow-y-auto bg-text/5 p-3 rounded-lg border border-jobcard-border/30 italic text-sm text-text/80 relative overflow-hidden">
           <div className="absolute left-0 top-0 h-full w-1 bg-amber-400/50" />
           <p className="whitespace-pre-line leading-relaxed wrap-break-word">
             {job.notes}
           </p>
         </div>
+      ) : (
+        <div className="h-24"></div>
       )}
+      </div>
+      
 
       {/* Buttons */}
       <div className="flex gap-2 mt-auto pt-2">

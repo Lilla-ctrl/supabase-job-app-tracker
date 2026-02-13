@@ -40,6 +40,7 @@ export default function Tracker() {
     error,
     setError,
     getFriendlyMessage,
+    fetchJobs,
   } = useJobs();
 
   /* Functions */
@@ -51,6 +52,7 @@ export default function Tracker() {
 
     try {
       await addJob(payload);
+      await fetchJobs(true);
       setError(null);
       setIsModalOpen(false);
       setNewJob(empty_job);
@@ -69,6 +71,7 @@ export default function Tracker() {
   async function handleUpdateJob(job) {
     try {
       await updateJob(job);
+      await fetchJobs(true);
       setError(null);
       setIsModalOpen(false);
       setNewJob(empty_job);
@@ -84,6 +87,7 @@ export default function Tracker() {
     setIsDeleting(true);
     try {
       await deleteJob(itemToDelete.id);
+      await fetchJobs(true);
       setError(null);
       toast.success(`${itemToDelete.company} succesfully deleted.`);
     } catch (err) {

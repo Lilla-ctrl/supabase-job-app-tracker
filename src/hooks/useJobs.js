@@ -148,5 +148,6 @@ export function useJobs() {
     error,
     setError,
     getFriendlyMessage,
+    fetchJobs
   };
 }

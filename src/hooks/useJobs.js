@@ -31,7 +31,7 @@ export function useJobs() {
       const { error, data } = await supabase
         .from("job_applications")
         .select("*")
-        .order("created_at", { ascending: true });
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
       setJobs(data);
